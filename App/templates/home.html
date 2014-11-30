@@ -1,9 +1,4 @@
 
-{% if pagina == 'home' %}
-{% extends 'layouts/header.html' %}
-
-
-
 {% block top %}
 
 	<title>{{ title }}</title>
@@ -11,6 +6,16 @@
 
 
 {% endblock top %}
+
+{% extends 'layouts/header.html' %}
+{% if pagina == 'urlshortned' %}
+<script type="text/javascript">
+ window.location="http://{{ script }}"
+</script>
+{% endif %}
+{% if pagina == 'home' %}
+
+
 
 
 
@@ -40,12 +45,34 @@
 
 
 {% if pagina == 'urlshortned' %}
+
 <h1>PAGINA DE REDIRECT</h1>
 {{ codigopagina }}
+
+
+
+
+
+
+
+
 
 
 {% elif pagina == "inserturl" %}
 <h1>AHAHHASHAIHSA</h1>
 <H1>{{ tamanho }}</H1>
+
+
+
+
+
+
+
+
+
+
+
+{% elif pagina == "about" %}
+<h1>ABOUT</h1>
 
 {% endif %}

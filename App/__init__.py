@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect
 #from flask.ext.wtf import Form
 app = Flask(__name__)
 
@@ -15,17 +15,44 @@ def home():
 
 
 
+
+
+
+
+
+
+@app.route("/insert")
+def insert(url = None):
+	return "Insert" 
+
+
+
+
+
+
+
+
+
+
+
 @app.route("/<code>")
 def redirectpage(code=None):
 	codigopagina = code
 	Title = titulosite + codigopagina
 	pagetype = "urlshortned"
+	redirectscript  = "http://" + codigopagina
 
-	return render_template("home.html", title = Title, pagina = pagetype,codigopagina=code)
+
+	return redirect(redirectscript, code=302)
 
 
 
 	# verify if the url for inputting will be getting the same value
+
+
+
+
+
 
 @app.route("/u/<url>")
 def paginainsert(url = None):
@@ -37,6 +64,9 @@ def paginainsert(url = None):
 	pagetype = "inserturl"
 	
 	return render_template("home.html", title = Title, pagina = pagetype, url = url, tamanho = tamanho)
+
+
+
 
 
 @app.route("/u/http://<url>")
@@ -51,6 +81,11 @@ def paginainserthttp(url = None):
 	
 	return render_template("home.html", title = Title, pagina = pagetype, url = url, tamanho = tamanho)
 
+
+
+
+
+
 @app.route("/u/https://<url>")
 def paginainserthttps(url = None):
 
@@ -62,6 +97,42 @@ def paginainserthttps(url = None):
 	pagetype = "inserturl"
 	
 	return render_template("home.html", title = Title, pagina = pagetype, url = url, tamanho = tamanho)
+
+
+
+
+
+
+@app.route("/about")
+def aboutpage():
+	Title = titulosite + " | About"
+	pagetype = "about"
+	return render_template("home.html", title = Title, pagina = pagetype)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
