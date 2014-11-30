@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Descrição do Windows Now">
+	<meta name="author" content="Windows Now">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- Scripts -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	{% block top %}
+	{% endblock top %}
+</head>
+<body>
+	<div id="content">
+		{% block body %}
+		{% endblock body %}
+	</div>
+	<footer>
+		{% block footer %}
+		{% endblock footer %}
+	</footer>
+</body>
+</html>
