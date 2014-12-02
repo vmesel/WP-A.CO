@@ -1,4 +1,4 @@
-USHRTN.US SOURCE CODE
+WP-A SOURCE CODE
 ===============================
 
 Our website is based on our open source application that can shorten every URL on the Web!
