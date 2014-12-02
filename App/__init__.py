@@ -3,6 +3,17 @@ from flask import Flask,render_template,request,redirect
 app = Flask(__name__)
 
 
+
+
+
+"""
+	coisas para implementar
+	- Método de inserção de URL
+	- Gerador de código aleatório para a URL de 5 caracteres no máximo (capacidade de 99.999 urls encurtadas)
+	- Layout bonito e simples de ser usado
+
+"""
+
 ## set landing pages on the Flask server
 
 titulosite = "GITT.ME"
