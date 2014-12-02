@@ -1,73 +1,18 @@
-
-{% block top %}
-
-	<title>{{ title }}</title>
-
-
-
-{% endblock top %}
-
 {% extends 'layouts/header.html' %}
-{% if pagina == 'home' %}
-
-
-
-
-
-
+{% block top %}<title>WhalePy</title>{% endblock top %}
 {% block body %}
-	<section>
-<h1>GITT ME</h1>
+<section>
+<h1>WhalePy - Url Shortner</h1>
+
+<form>
+	 {{ form.url(size=1000) }}
+
+</form>
 
 
 
-		<form>
-		</form>
-
-
-	</section>
+</section>
 {% endblock body %}
-
-
-
-
-
-
 {% block footer %}
 <h3>FOOTER PORRA</h3>
 {% endblock footer %}
-{% endif %}
-
-
-{% if pagina == 'urlshortned' %}
-
-<h1>PAGINA DE REDIRECT</h1>
-{{ codigopagina }}
-
-
-
-
-
-
-
-
-
-
-{% elif pagina == "inserturl" %}
-<h1>AHAHHASHAIHSA</h1>
-<H1>{{ tamanho }}</H1>
-
-
-
-
-
-
-
-
-
-
-
-{% elif pagina == "about" %}
-<h1>ABOUT</h1>
-
-{% endif %}

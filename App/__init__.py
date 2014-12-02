@@ -1,152 +1,104 @@
-from flask import Flask,render_template,request,redirect
-#from flask.ext.wtf import Form
+"""
+WP-A.CO CODE
+BY: VINICIUS MESEL (@VMESEL)
+DISTRIBUTED UNDER THE GNU/GPL 
+"""
+###################  IMPORT LIBRARIES  ##########################
+from flask import Flask,render_template,redirect
+import sys
+import base64
+import string
+import random
+import mysql.connector
+import socket
+from .form import URLFORM
+#timeout para server defo mysql
+timeout = 100
+socket.setdefaulttimeout(timeout)
+################################################################
 app = Flask(__name__)
-
-
-
-
-
-"""
-	coisas para implementar
-	- Método de inserção de URL
-	- Gerador de código aleatório para a URL de 5 caracteres no máximo (capacidade de 99.999 urls encurtadas)
-	- Layout bonito e simples de ser usado
-
-"""
-
+conexao = mysql.connector.connect(user="", password="", host='', database='')
 ## set landing pages on the Flask server
 
-titulosite = "GITT.ME"
+###################################################################
+def randstring():
+    caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789'
+    return ''.join((random.choice(caracteres) for i in range(5)))
 
-@app.route("/")
+###############################################################################
+
+
+@app.route("/", methods=['GET', 'POST'])
 def home():
-	Title = titulosite + " | Home"
-	pagetype = "home"
-	return render_template("home.html",title = Title,pagina=pagetype)
-
-
-
-
-
-
-
-
-
-@app.route("/insert")
-def insert(url = None):
-	return "Insert" 
-
-
-
-
-
-
-
-
-
-
+    form = URLFORM()
+    return render_template("home.html",form=form)
+    
 
 @app.route("/<code>")
-def redirectpage(code=None):
-	codigopagina = code
-	Title = titulosite + codigopagina
-	pagetype = "urlshortned"
-	redirectscript  = "http://" + codigopagina
+def encurtada(code=None):
+	nintendo64 = code
+	conn = conexao
+	cursor = conn.cursor()
+	query = 'select linkoriginal from links where linkencurtado = "' + nintendo64  + '"'
+	cursor.execute(query)
 
-
-	return redirect(redirectscript, code=302)
-
-
-
-	# verify if the url for inputting will be getting the same value
-
+	for (linkoriginal) in cursor:
+		linkredirecionar = linkoriginal[0]
+		return redirect(linkredirecionar, 302)	
 
 
 
+	cursor.close()
+	conn.commit()
+	conn.close()
 
+	#url = "http://" + code
+	
 
 @app.route("/u/<url>")
-def paginainsert(url = None):
-	tamanho = len(url)
-
-
-	link = url
-	Title = titulosite + " | URL ENCURTADA:" + url
-	pagetype = "inserturl"
-	
-	return render_template("home.html", title = Title, pagina = pagetype, url = url, tamanho = tamanho)
-
-
-
+def gerador(url=None):
+	conn = conexao
+	url = "http://" + url
+	cursor = conn.cursor()
+	nintendo64 = randstring()
+	cursor.execute("INSERT INTO links(linkoriginal, linkencurtado) VALUES ('%s','%s')" % (url, nintendo64)) 
+	cursor.close()
+	conn.commit()
+	conn.close()
+	message = "http://www.wp-a.co/%s" % nintendo64
+	return message
 
 
 @app.route("/u/http://<url>")
-def paginainserthttp(url = None):
-
-	tamanho = len(url)
-
-
-	link = url
-	Title = titulosite + " | URL ENCURTADA:" + url
-	pagetype = "inserturl"
-	
-	return render_template("home.html", title = Title, pagina = pagetype, url = url, tamanho = tamanho)
-
-
-
-
+def geradorhttp(url=None):
+	conn = conexao
+	url = "http://" + url
+	cursor = conn.cursor()
+	nintendo64 = randstring()
+	cursor.execute("INSERT INTO links(linkoriginal, linkencurtado) VALUES ('%s','%s')" % (url, nintendo64)) 
+	cursor.close()
+	conn.commit()
+	conn.close()
+	message = "http://www.wp-a.co/%s" % nintendo64
+	return message
 
 
 @app.route("/u/https://<url>")
-def paginainserthttps(url = None):
+def geradorhttps(url=None):
+	conn = conexao
+	url = "https://" + url
+	cursor = conn.cursor()
+	nintendo64 = randstring()
+	cursor.execute("INSERT INTO links(linkoriginal, linkencurtado) VALUES ('%s','%s')" % (url, nintendo64)) 
+	cursor.close()
+	conn.commit()
+	conn.close()
+	message = "http://www.wp-a.co/%s" % nintendo64
+	return message
 
-	tamanho = len(url)
-
-
-	link = url
-	Title = titulosite + " | URL ENCURTADA:" + url
-	pagetype = "inserturl"
-	
-	return render_template("home.html", title = Title, pagina = pagetype, url = url, tamanho = tamanho)
-
-
-
-
-
-
-@app.route("/about")
-def aboutpage():
-	Title = titulosite + " | About"
-	pagetype = "about"
-	return render_template("home.html", title = Title, pagina = pagetype)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+######################################################
 
 
 ## set to run!
 if __name__ == "__main__":
-    app.run(debug=True,port=80)
+    app.run(debug=True, host="192.168.200.87", port=80)
