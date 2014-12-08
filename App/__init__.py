@@ -1,7 +1,7 @@
 """
 WP-A.CO CODE
 BY: VINICIUS MESEL (@VMESEL)
-DISTRIBUTED UNDER THE GNU/GPL 
+DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
 """
 ###################  IMPORT LIBRARIES  ##########################
 from flask import Flask,render_template,redirect
@@ -12,15 +12,11 @@ import random
 import mysql.connector
 import socket
 from .form import URLFORM
-#timeout para server defo mysql
-timeout = 100
+timeout = 100 #Timeout for MySQL Connection
 socket.setdefaulttimeout(timeout)
-################################################################
+#########################  SYSTEM VARIABLES  ###############################
 app = Flask(__name__)
-conexao = mysql.connector.connect(user="", password="", host='', database='')
-## set landing pages on the Flask server
 
-###################################################################
 def randstring():
     caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789'
     return ''.join((random.choice(caracteres) for i in range(5)))
@@ -37,7 +33,7 @@ def home():
 @app.route("/<code>")
 def encurtada(code=None):
 	nintendo64 = code
-	conn = conexao
+	conn = mysql.connector.connect(user="", password="", host='', database='')
 	cursor = conn.cursor()
 	query = 'select linkoriginal from links where linkencurtado = "' + nintendo64  + '"'
 	cursor.execute(query)
@@ -57,7 +53,7 @@ def encurtada(code=None):
 
 @app.route("/u/<url>")
 def gerador(url=None):
-	conn = conexao
+	conn = mysql.connector.connect(user="", password="", host='', database='')
 	url = "http://" + url
 	cursor = conn.cursor()
 	nintendo64 = randstring()
@@ -71,7 +67,7 @@ def gerador(url=None):
 
 @app.route("/u/http://<url>")
 def geradorhttp(url=None):
-	conn = conexao
+	conn = mysql.connector.connect(user="", password="", host='', database='')
 	url = "http://" + url
 	cursor = conn.cursor()
 	nintendo64 = randstring()
@@ -85,7 +81,7 @@ def geradorhttp(url=None):
 
 @app.route("/u/https://<url>")
 def geradorhttps(url=None):
-	conn = conexao
+	conn = mysql.connector.connect(user="", password="", host='', database='')
 	url = "https://" + url
 	cursor = conn.cursor()
 	nintendo64 = randstring()
@@ -101,4 +97,4 @@ def geradorhttps(url=None):
 
 ## set to run!
 if __name__ == "__main__":
-    app.run(debug=True, host="192.168.200.87", port=80)
+    app.run(debug=True, host="0.0.0.0", port=80)
