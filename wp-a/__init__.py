@@ -3,6 +3,7 @@ WP-A.CO CODE
 BY: VINICIUS MESEL (@VMESEL)
 DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
 """
+
 ###################  IMPORT LIBRARIES  ##########################
 from flask import Flask,render_template,redirect
 import sys
@@ -11,9 +12,12 @@ import string
 import random
 import mysql.connector
 import socket
-from .form import URLFORM
+#from .form import URLFORM
+from system.variables import *
+
 timeout = 100 #Timeout for MySQL Connection
 socket.setdefaulttimeout(timeout)
+
 #########################  SYSTEM VARIABLES  ###############################
 app = Flask(__name__)
 
@@ -26,14 +30,14 @@ def randstring():
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    form = URLFORM()
-    return render_template("home.html",form=form)
+    #form = URLFORM()
+    return render_template("home.html")
     
 
 @app.route("/<code>")
 def encurtada(code=None):
 	nintendo64 = code
-	conn = mysql.connector.connect(user="", password="", host='', database='')
+	conn = con
 	cursor = conn.cursor()
 	query = 'select linkoriginal from links where linkencurtado = "' + nintendo64  + '"'
 	cursor.execute(query)
@@ -53,7 +57,7 @@ def encurtada(code=None):
 
 @app.route("/u/<url>")
 def gerador(url=None):
-	conn = mysql.connector.connect(user="", password="", host='', database='')
+	conn = con
 	url = "http://" + url
 	cursor = conn.cursor()
 	nintendo64 = randstring()
@@ -67,7 +71,7 @@ def gerador(url=None):
 
 @app.route("/u/http://<url>")
 def geradorhttp(url=None):
-	conn = mysql.connector.connect(user="", password="", host='', database='')
+	conn = con
 	url = "http://" + url
 	cursor = conn.cursor()
 	nintendo64 = randstring()
@@ -81,7 +85,7 @@ def geradorhttp(url=None):
 
 @app.route("/u/https://<url>")
 def geradorhttps(url=None):
-	conn = mysql.connector.connect(user="", password="", host='', database='')
+	conn = con
 	url = "https://" + url
 	cursor = conn.cursor()
 	nintendo64 = randstring()
@@ -97,4 +101,4 @@ def geradorhttps(url=None):
 
 ## set to run!
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=80)
+    app.run(debug=True)
