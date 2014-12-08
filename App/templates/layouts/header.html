@@ -15,13 +15,11 @@
 	{% endblock top %}
 </head>
 <body>
+	<header>
+		{% block header %}
+		{% endblock header %}
+	</header>
 	<div id="content">
 		{% block body %}
 		{% endblock body %}
 	</div>
-	<footer>
-		{% block footer %}
-		{% endblock footer %}
-	</footer>
-</body>
-</html>
