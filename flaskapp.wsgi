@@ -1,6 +1,6 @@
 import sys
 import logging
-from extras import variables
+from extras.variables import logpath
 
 
 
