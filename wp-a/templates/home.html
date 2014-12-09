@@ -1,14 +1,24 @@
 {% extends 'layouts/header.html' %}
 {% block top %}<title>WhalePy</title>{% endblock top %}
-{% block header %}<h1>WhalePy - Url Shortner</h1>{% endblock header %}
 {% block body %}
 <section>
+<h1>WP-A.CO  - Url Shortner</h1>
 
-<form>
-	
+<form method="get" action="/add/" enctype="multipart/form-data">
+<table>
+	<tr>
+		<td>{{ form.url.label }}:</td>
+		<td>{{ form.url(id="urlencurtada-campo") }}</td>
+	</tr>
+	<tr>
+		<td>{{ form.customshort.label }}:</td>
+		<td>{{ form.customshort(id="customshort-campo") }}</td>
+	</tr>
+</table>
+
+	<input type="submit" value="Submit URL!">
 
 </form>
-
 
 
 </section>

@@ -1,104 +1,72 @@
 """
 WP-A.CO CODE
 BY: VINICIUS MESEL (@VMESEL)
-DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
+DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE
 """
-
 ###################  IMPORT LIBRARIES  ##########################
-from flask import Flask,render_template,redirect
+from flask import Flask,render_template,redirect,request
+from flask_wtf import Form
+from wtforms import StringField, SubmitField
 import sys
-import base64
 import string
 import random
 import mysql.connector
 import socket
-#from .form import URLFORM
-from system.variables import *
+from system.variables import timeoutformysql
+from system.functions import tipodeurl, tipodeurladd, checaencurtada
 
-timeout = 100 #Timeout for MySQL Connection
-socket.setdefaulttimeout(timeout)
 
-#########################  SYSTEM VARIABLES  ###############################
+
+socket.setdefaulttimeout(timeoutformysql)
+
+
 app = Flask(__name__)
 
 def randstring():
-    caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789'
-    return ''.join((random.choice(caracteres) for i in range(5)))
+	caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789'
+	return ''.join((random.choice(caracteres) for i in range(5)))
 
-###############################################################################
+class URLForm(Form):
+	url = StringField("URL")
+	customshort = StringField("Custom Alias")
 
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    #form = URLFORM()
-    return render_template("home.html")
-    
+	form = URLForm(csrf_enabled=False)
+	return render_template("home.html", form=form)
 
-@app.route("/<code>")
-def encurtada(code=None):
-	nintendo64 = code
-	conn = con
-	cursor = conn.cursor()
-	query = 'select linkoriginal from links where linkencurtado = "' + nintendo64  + '"'
-	cursor.execute(query)
 
-	for (linkoriginal) in cursor:
-		linkredirecionar = linkoriginal[0]
-		return redirect(linkredirecionar, 302)	
+@app.route("/add/", methods=['GET', 'POST'])
+def addurl():
+	return tipodeurl(request.args.get("url"),request.args.get("customshort"))
+
 
 
 
-	cursor.close()
-	conn.commit()
-	conn.close()
+@app.route("/<code>")
+def encurtada(code):
+	return checaencurtada(code)
 
-	#url = "http://" + code
-	
+
+
+@app.route("/u/")
+def erroquatrocentosequatro():
+	return redirect("/", 302)
+
 
 @app.route("/u/<url>")
 def gerador(url=None):
-	conn = con
-	url = "http://" + url
-	cursor = conn.cursor()
-	nintendo64 = randstring()
-	cursor.execute("INSERT INTO links(linkoriginal, linkencurtado) VALUES ('%s','%s')" % (url, nintendo64)) 
-	cursor.close()
-	conn.commit()
-	conn.close()
-	message = "http://www.wp-a.co/%s" % nintendo64
-	return message
+	return tipodeurladd(url)
 
 
 @app.route("/u/http://<url>")
 def geradorhttp(url=None):
-	conn = con
-	url = "http://" + url
-	cursor = conn.cursor()
-	nintendo64 = randstring()
-	cursor.execute("INSERT INTO links(linkoriginal, linkencurtado) VALUES ('%s','%s')" % (url, nintendo64)) 
-	cursor.close()
-	conn.commit()
-	conn.close()
-	message = "http://www.wp-a.co/%s" % nintendo64
-	return message
-
+	return tipodeurladd(url)
 
 @app.route("/u/https://<url>")
 def geradorhttps(url=None):
-	conn = con
-	url = "https://" + url
-	cursor = conn.cursor()
-	nintendo64 = randstring()
-	cursor.execute("INSERT INTO links(linkoriginal, linkencurtado) VALUES ('%s','%s')" % (url, nintendo64)) 
-	cursor.close()
-	conn.commit()
-	conn.close()
-	message = "http://www.wp-a.co/%s" % nintendo64
-	return message
+	return tipodeurladd(url)
 
-######################################################
-
-
-## set to run!
 if __name__ == "__main__":
-    app.run(debug=True)
+	app.run(debug=True)
