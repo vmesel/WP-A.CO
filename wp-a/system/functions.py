@@ -20,9 +20,6 @@ from .variables import dbuser, conn
 
 #conn = mysql.connector.connect(user=dbuser, password=dbpass, host=dbserver, database=dbname)
 
-def randstring():
-	return ''.join(random.SystemRandom().choice( string.ascii_lowercase+ string.ascii_uppercase + string.digits) for _ in range(10))
-
 def tipodeurl(url,customalias):
 
 	if not customalias:
@@ -43,10 +40,7 @@ def tipodeurl(url,customalias):
 	message = "%s/%s" % (linkshortner, nintendo64)
 	return message
 
-def tipodeurladd(url):
-	nintendo64 = randstring()
-	urlparaencurtar = url
-	return tipodeurl(urlparaencurtar,"")
+
 
 def checaencurtada(code):
 	cursor = conn.cursor()
