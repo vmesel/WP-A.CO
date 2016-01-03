@@ -18,29 +18,6 @@ import random
 import socket
 from .variables import dbuser, conn
 
-#conn = mysql.connector.connect(user=dbuser, password=dbpass, host=dbserver, database=dbname)
-
-def tipodeurl(url,customalias):
-
-	if not customalias:
-		RandAlias = randstring()
-	else:
-		NewAlias =
-
-
-	#DEFINIR TIPO DE URL A PARTIR DE REGEX
-
-	#TROCAR PARTE DE CONEXÃO COM SQLLITE
-	cursor = conn.cursor()
-	cursor.execute("INSERT INTO links(linkoriginal, linkencurtado) VALUES ('%s','%s')" % (urlparaencurtar, nintendo64))
-	cursor.close()
-	conn.commit()
-	conn.close()
-
-	message = "%s/%s" % (linkshortner, nintendo64)
-	return message
-
-
 
 def checaencurtada(code):
 	cursor = conn.cursor()
