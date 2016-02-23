@@ -2,6 +2,10 @@
 WP-A.CO CODE
 BY: VINICIUS MESEL (@VMESEL)
 DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
+
+- START RECOGNIZING URLS IN /ADD/
+- CREATE A CRYPTO HASH FOR EVERY URL
+- WORK ON THE DB AND THE CONNECTION
 """
 ###################  IMPORT LIBRARIES  ##########################
 from flask import Flask,render_template,redirect,request
@@ -11,13 +15,6 @@ import sys
 import string
 import random
 import socket
-
-app = Flask(__name__)
-
-def randstring():
-	caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789!@#$%&-+'
-	return ''.join((random.choice(caracteres) for i in range(5)))
-
 
 class URLForm(Form):
 	url = StringField("URL")
@@ -33,16 +30,10 @@ def home():
 	#return("HELLO WORLD")
 
 #Add URL Function - NON API FUNCTION
-@app.route("/add/<urlAEncurtar>", methods=['GET', 'POST'])
-def nonapiaddurl(urlAEncurtar):
-	URLATrabalhar = request.form.get('url', '')
+@app.route("/add/<urlAEncurtar>")
+def addurl(urlAEncurtar):
 	return(URLATrabalhar)
 
-
-#Add URL Function - API FUNCTION
-@app.route("/add/<urlAEncurtar>", methods=['GET', 'POST'])
-def addurl(urlAEncurtar):
-	return(urlAEncurtar)
 
 
 if __name__ == "__main__":

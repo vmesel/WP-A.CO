@@ -1,6 +1,6 @@
 WP-A.CO
 
-
+WP-A stands for Web Powered Access, this actually means that the access to an application is going to be made via a short weblink.
 WP-A.CO is an Open Source URL Shortener project that is being made with Python, SQLite, HTML and CSS.
 Anyone who wants, can develop plugins and other stuff for the project to let it alive!
 
@@ -18,9 +18,14 @@ wp-a/
       header.html
 
 ################################################
+## What we are working on:
+- Start recognizing urls in /add/.
+- Create a crypto hash for every url.
+- Work on the db and the connection.
+
 ## Functions that can already be used
 
-Nothing can be used right now
+Nothing can be used right now, the tool is under development. So, until we don't get rid of the ALPHA version, we are going to be testing everything and than we will release the software with the necessary documentation.
 
 ## Available in future
 
