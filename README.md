@@ -1,12 +1,29 @@
-URL SHORTENER
-===============================
+WP-A.CO
 
-This is an open source URL Shortening service! You can see the code, receive the shortened url and share in your social networks!
 
-We are going to work on this things!
-=============================
-  1 - SQLlite database
+WP-A.CO is an Open Source URL Shortener project that is being made with Python, SQLite, HTML and CSS.
+Anyone who wants, can develop plugins and other stuff for the project to let it alive!
 
-  2 - Get statistics about your URL
+################################################
+## Structure
+wp-a/
+  __init__.py
+  system/
+    __init__.py
+    variables.py
+  templates/
+    home.html
+    layouts/
+      footer.html
+      header.html
 
-  3 - Make an admin area
+################################################
+## Functions that can already be used
+
+Nothing can be used right now
+
+## Available in future
+
+url.com/add/Your-Link-Here - This function will allow you to put your link by hand in the system.
+url.com/u/CodeHere - This function will allow you to enter your shortened url.
+url.com/login/ - This page will allow you to login and see your shortened urls.
