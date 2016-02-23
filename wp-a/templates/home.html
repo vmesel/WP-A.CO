@@ -1,18 +1,18 @@
 {% extends 'layouts/header.html' %}
-{% block top %}<title>WhalePy</title>{% endblock top %}
+{% block top %}<title>WP-A</title>{% endblock top %}
 {% block body %}
 <section>
 <h1>WP-A.CO  - Url Shortner</h1>
 
-<form method="get" action="/a/" enctype="multipart/form-data">
+<form method="get" action="/add/" enctype="multipart/form-data">
 <table>
 	<tr>
-		<td>{{ form.url.label }}:</td>
-		<td>{{ form.url(id="urlencurtada-campo") }}</td>
+		<td>URL to Shorten:</td>
+		<td><input type="text" name="url"></td>
 	</tr>
 	<tr>
-		<td>{{ form.customshort.label }}:</td>
-		<td>{{ form.customshort(id="customshort-campo") }}</td>
+		<td>Custom Alias:</td>
+		<td><input type="text" name="custom"></td>
 	</tr>
 </table>
 
@@ -20,6 +20,8 @@
 
 </form>
 
+{{urlPlace}}
+{{customShortPlace}}
 
 </section>
 {% endblock body %}

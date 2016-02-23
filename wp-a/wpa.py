@@ -9,32 +9,35 @@ DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
 """
 ###################  IMPORT LIBRARIES  ##########################
 from flask import Flask,render_template,redirect,request
-from flask_wtf import Form
-from wtforms import StringField, SubmitField
-import sys
-import string
-import random
-import socket
 
-class URLForm(Form):
-	url = StringField("URL")
-	customshort = StringField("Custom Alias")
+app = Flask(__name__)
+
+
+def GenerateRandURL():
+	return("Hello Worlds")
 
 
 #Home Function
 @app.route("/", methods=['GET', 'POST'])
 def home():
-	form = URLForm(csrf_enabled=False)
-	#Render a Web Page template for the Home
-	return render_template("home.html", form=form)
-	#return("HELLO WORLD")
+	return render_template("home.html")
 
-#Add URL Function - NON API FUNCTION
-@app.route("/add/<urlAEncurtar>")
-def addurl(urlAEncurtar):
-	return(URLATrabalhar)
+
+@app.route("/add/", methods=['GET', 'POST'])
+def addURL():
+	global URLadd, CustomURL
+	URLadd = request.args.get('url')
+	CustomURL = request.args.get('custom')
+
+	if CustomURL != "":
+		return(URLadd + "CUSTOM: " + CustomURL + "\n")
+	else:
+		CustomURL = GenerateRandURL()
+		return(URLadd + ' CUSTOM NOVA: ' + GenerateRandURL() )
+
+
 
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True,port=8080)
