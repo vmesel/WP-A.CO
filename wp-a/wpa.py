@@ -16,6 +16,13 @@ app = Flask(__name__)
 def GenerateRandURL():
 	return("Hello Worlds")
 
+def processaURL(urlprocessar, customaadd):
+	if(customaadd == ""):
+		return("Sem custom")
+	else:
+		return("Com custom")
+
+
 
 #Home Function
 @app.route("/", methods=['GET', 'POST'])
@@ -29,11 +36,7 @@ def addURL():
 	URLadd = request.args.get('url')
 	CustomURL = request.args.get('custom')
 
-	if CustomURL != "":
-		return(URLadd + "CUSTOM: " + CustomURL + "\n")
-	else:
-		CustomURL = GenerateRandURL()
-		return(URLadd + ' CUSTOM NOVA: ' + GenerateRandURL() )
+	return(processaURL(URLadd, CustomURL))
 
 
 
