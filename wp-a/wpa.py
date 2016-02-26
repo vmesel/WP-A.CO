@@ -9,18 +9,25 @@ DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
 ###################  IMPORT LIBRARIES  ##########################
 from flask import Flask,render_template,redirect,request
 import random
+import datetime
+from hashids import Hashids
+
+cypher = Hashids(salt = "WP-A.co")
 
 app = Flask(__name__)
 
-
+t = datetime.datetime.now()
 
 def processaURL(urlprocessar, customaadd):
-	if(customaadd is None):
-
-		return("Sem custom " + str(customaadd))
-	else:
+	pi = 3.14159
+	if(customaadd != ""):
 		return("Custom:  " + str(customaadd))
-
+	else:
+		generator = len(urlprocessar) / pi
+		untilNow = (t - datetime.datetime(1970,1,1)).total_seconds()
+		# To generate the Final Hash
+		urlFinal = cypher.encode(int(generator),int(untilNow))
+		return("Sem custom " + str(urlFinal))
 
 #Home Function
 @app.route("/", methods=['GET', 'POST'])
@@ -35,7 +42,6 @@ def addURL():
 	CustomURL = request.args.get('customshort')
 
 	return(processaURL(URLadd, CustomURL))
-	print(processaURL(URLadd, CustomURL))
 
 
 if __name__ == "__main__":
