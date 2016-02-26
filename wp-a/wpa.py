@@ -3,25 +3,23 @@ WP-A.CO CODE
 BY: VINICIUS MESEL (@VMESEL)
 DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
 
-- START RECOGNIZING URLS IN /ADD/
 - CREATE A CRYPTO HASH FOR EVERY URL
 - WORK ON THE DB AND THE CONNECTION
 """
 ###################  IMPORT LIBRARIES  ##########################
 from flask import Flask,render_template,redirect,request
+import random
 
 app = Flask(__name__)
 
 
-def GenerateRandURL():
-	return("Hello Worlds")
 
 def processaURL(urlprocessar, customaadd):
-	if(customaadd == ""):
-		return("Sem custom")
-	else:
-		return("Com custom")
+	if(customaadd is None):
 
+		return("Sem custom " + str(customaadd))
+	else:
+		return("Custom:  " + str(customaadd))
 
 
 #Home Function
@@ -34,12 +32,10 @@ def home():
 def addURL():
 	global URLadd, CustomURL
 	URLadd = request.args.get('url')
-	CustomURL = request.args.get('custom')
+	CustomURL = request.args.get('customshort')
 
 	return(processaURL(URLadd, CustomURL))
-
-
-
+	print(processaURL(URLadd, CustomURL))
 
 
 if __name__ == "__main__":
