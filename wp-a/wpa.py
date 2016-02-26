@@ -19,6 +19,9 @@ app = Flask(__name__)
 t = datetime.datetime.now()
 
 def processaURL(urlprocessar, customaadd):
+
+	#This is going to need an improvement for grapping in the database and seeing if any url can be reused
+
 	pi = 3.14159
 	if(customaadd != ""):
 		return("Custom:  " + str(customaadd))
