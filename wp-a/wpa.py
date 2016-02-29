@@ -18,8 +18,7 @@ app = Flask(__name__)
 
 t = datetime.datetime.now()
 
-def processaURL(urlprocessar, customaadd):
-
+def URLGenerate(customaadd, urlprocessar):
 	#This is going to need an improvement for grapping in the database and seeing if any url can be reused
 
 	pi = 3.14159
@@ -31,6 +30,16 @@ def processaURL(urlprocessar, customaadd):
 		# To generate the Final Hash
 		urlFinal = cypher.encode(int(generator),int(untilNow))
 		return("Sem custom " + str(urlFinal))
+
+def processaURL(urlprocessar, customaadd):
+
+	NewURL = URLGenerate(customaadd, urlprocessar)
+	# Join it to the database
+	# Structure:
+	# ID, URL, ShortHash, Date, Clicks
+
+	
+
 
 #Home Function
 @app.route("/", methods=['GET', 'POST'])
