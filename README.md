@@ -33,15 +33,15 @@ wp-a/
 ################################################
 ## What we are working on:
 
-- Start recognizing urls in /add/.
+- Inserting the URL in the Database
 
-- Create a crypto hash for every url.
+- Creating the URL Recognizing page
 
-- Work on the db and the connection.
+- Creating an Attractive UI for user usage
 
 ## Functions that can already be used
 
-Nothing can be used right now, the tool is under development. So, until we don't get rid of the ALPHA version, we are going to be testing everything and than we will release the software with the necessary documentation.
+This is a Beta version of the code, so you can find and experience some bugs, than, you can report to me or give your solution for the problem in a thread in here or send me via email: vinicius@bigsp.com.br
 
 ## Available in future
 
