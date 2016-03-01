@@ -63,5 +63,11 @@ def addURL():
 	return(processaURL(URLadd, CustomURL))
 
 
+
+@app.route("/u/", methods=['GET', 'POST'])
+def CheckURL():
+	return("COOL URL M8!")
+
+
 if __name__ == "__main__":
 	app.run(port=8080,debug=True)
