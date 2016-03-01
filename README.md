@@ -10,25 +10,16 @@ b
 ################################################
 ## Structure
 
-  wp-a/
-
-    __init__.py
-b
-    system/
-
-      __init__.py
-
-      variables.py
-
-    templates/
-
-      home.html
-
-      layouts/
-
-        footer.html
-
-        header.html
++--wp-a/
++--__init__.py
++--system/
+  +--__init__.py
+  +--variables.py
++--templates/
+  +--home.html
+  +--layouts/
+    +--footer.html
+    +--header.html
 
 ################################################
 ## What we are working on:
