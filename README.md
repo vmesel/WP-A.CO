@@ -9,18 +9,18 @@ Anyone who wants, can develop plugins and other stuff for the project to let it 
 b
 ################################################
 ## Structure
-
-+--wp-a/
-+--__init__.py
-+--system/
-  +--__init__.py
-  +--variables.py
-+--templates/
-  +--home.html
-  +--layouts/
-    +--footer.html
-    +--header.html
-
+```
+wp-a/
+ - __init__.py
+ - system/
+  -- __init__.py
+  -- variables.py
+ - templates/
+  - home.html
+  - layouts/
+    -- footer.html
+    -- header.html
+```
 ################################################
 ## What we are working on:
 
