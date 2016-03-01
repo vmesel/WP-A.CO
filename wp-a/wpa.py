@@ -19,15 +19,16 @@ t = datetime.datetime.now()
 
 def URLGenerate(customaadd, urlprocessar):
 	#This is going to need an improvement for grapping in the database and seeing if any url can be reused
-	pi = 3.14159
+
 	if(customaadd != ""):
 		return("0")
 	else:
 		return("1")
 
 def processaURL(urlprocessar, customaadd):
+	pi = 3.14159
 	checker = URLGenerate(urlprocessar, customaadd)
-	if checker == 0:
+	if customaadd == "":
 		generator = len(urlprocessar) / pi
 		untilNow = (t - datetime.datetime(1970,1,1)).total_seconds()
 		# To generate the Final Hash
@@ -36,16 +37,15 @@ def processaURL(urlprocessar, customaadd):
 	else:
 		urlFinal = customaadd
 
-	# TABLE ORDER: HASH, URL, DATE
-	#insertContent = "'"urlFinal"','" urlprocessar"','" datetime.datetime.now()
-	#insertContent = ("('" + urlFinal "','" + urlprocessar + "'," + datetime.now() ")")
+
 	connection = sql.connect(DBSource)
 	cursor = connection.cursor()
-	query = "INSERT INTO URLStorage VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
-	#return(query)
+	query = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
 	cursor.execute(query)
+	connection.commit()
 	CompleteURL = "Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
 	return(CompleteURL)
+
 
 
 #Home Function
@@ -64,9 +64,16 @@ def addURL():
 
 
 
-@app.route("/u/", methods=['GET', 'POST'])
-def CheckURL():
-	return("COOL URL M8!")
+@app.route("/u/<urlcode>", methods=['GET', 'POST'])
+def CheckURL(urlcode):
+	# SELECT URL from URLManager where HASH = urlcode
+	connection = sql.connect(DBSource)
+	cursor = connection.cursor()
+	CheckQuery = "SELECT URL from URLManager where HASH = '{0}'".format(urlcode)
+	cursor.execute(CheckQuery)
+	connection.commit()
+	RedirectTo = cursor.fetchone()[0]
+	return render_template("render-url.html",RedirectTo = RedirectTo)
 
 
 if __name__ == "__main__":
