@@ -20,31 +20,15 @@ app = Flask(__name__)
 t = datetime.datetime.now()
 SECRAND = SystemRandom()
 
-def URLGenerate(customaadd, urlprocessar):
-	#This is going to need an improvement for grapping in the database and seeing if any url can be reused
-
-	if(customaadd != ""):
-		return("0")
-	else:
-		return("1")
-
 def processaURL(urlprocessar, customaadd):
-	pi = 3.14159
-	checker = URLGenerate(urlprocessar, customaadd)
 	if customaadd == "":
-		generator = len(urlprocessar) / pi
-		untilNow = (t - datetime.datetime(1970,1,1)).total_seconds()
-		# To generate the Final Hash
 		key = SECRAND.randint(0, 66 ** 4)
 		urlFinal = safeurl.num_encode(key)
-
 	else:
 		urlFinal = customaadd
 
-
 	connection = sql.connect(DBSource)
 	cursor = connection.cursor()
-	# Verify if the URL is already included in the database
 	querySelect = "SELECT * FROM URLManager WHERE HASH='{0}'".format(urlFinal)
 
 	cursor.execute(querySelect)
@@ -52,11 +36,11 @@ def processaURL(urlprocessar, customaadd):
 		query = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
 		cursor.execute(query)
 		connection.commit()
-		CompleteURL = "NEW URL: Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
-		return(CompleteURL)
+		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
 	else:
-		CompleteURL = "OLD URL: Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
-		return(CompleteURL)
+		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
+
+	return render_template("newurl.html",FullURL = CompleteURL)
 
 
 	#If not, insert it into the database
@@ -95,4 +79,4 @@ def CheckURL(urlcode):
 
 
 if __name__ == "__main__":
-	app.run(port=8080,debug=True)
+	app.run(port=80,debug=True)
