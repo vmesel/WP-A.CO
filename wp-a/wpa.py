@@ -12,10 +12,13 @@ import datetime
 from hashids import Hashids
 import sqlite3 as sql
 from variables import *
+from random import SystemRandom
+import lib.safeurl as safeurl
 
 cypher = Hashids(salt = "WP-A.co")
 app = Flask(__name__)
 t = datetime.datetime.now()
+SECRAND = SystemRandom()
 
 def URLGenerate(customaadd, urlprocessar):
 	#This is going to need an improvement for grapping in the database and seeing if any url can be reused
@@ -32,7 +35,8 @@ def processaURL(urlprocessar, customaadd):
 		generator = len(urlprocessar) / pi
 		untilNow = (t - datetime.datetime(1970,1,1)).total_seconds()
 		# To generate the Final Hash
-		urlFinal = cypher.encode(int(generator),int(untilNow))
+		key = SECRAND.randint(0, 66 ** 4)
+		urlFinal = safeurl.num_encode(key)
 
 	else:
 		urlFinal = customaadd
@@ -40,11 +44,25 @@ def processaURL(urlprocessar, customaadd):
 
 	connection = sql.connect(DBSource)
 	cursor = connection.cursor()
-	query = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
-	cursor.execute(query)
-	connection.commit()
-	CompleteURL = "Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
-	return(CompleteURL)
+	# Verify if the URL is already included in the database
+	querySelect = "SELECT * FROM URLManager WHERE HASH='{0}'".format(urlFinal)
+
+	cursor.execute(querySelect)
+	if len(cursor.fetchall()) < 1:
+		query = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
+		cursor.execute(query)
+		connection.commit()
+		CompleteURL = "NEW URL: Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
+		return(CompleteURL)
+	else:
+		CompleteURL = "OLD URL: Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
+		return(CompleteURL)
+
+
+	#If not, insert it into the database
+
+	#CompleteURL = "Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
+	#return(CompleteURL)
 
 
 
