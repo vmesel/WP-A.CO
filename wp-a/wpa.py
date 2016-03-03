@@ -1,11 +1,3 @@
-"""
-WP-A.CO CODE
-BY: VINICIUS MESEL (@VMESEL)
-DISTRIBUTED UNDER THE CC SHARE ALIKE LICENSE(AVAILABLE ON THE LICENSE.md FILE)
-
-- WORK ON THE DB AND THE CONNECTION
-"""
-###################  IMPORT LIBRARIES  ##########################
 from flask import Flask,render_template,redirect,request
 import random
 import datetime
@@ -21,33 +13,42 @@ t = datetime.datetime.now()
 SECRAND = SystemRandom()
 
 def processaURL(urlprocessar, customaadd):
+
+	connection = sql.connect(DBSource)
+	cursor = connection.cursor()
+
+	# Check if there is the HTTP:// in the string
+	if "http://" in urlprocessar:
+		urlprocessar = urlprocessar
+	elif "https://" in urlprocessar:
+		urlprocessar = urlprocessar
+	else:
+		urlprocessar = "http://" + urlprocessar
+
 	if customaadd == "":
 		key = SECRAND.randint(0, 66 ** 4)
 		urlFinal = safeurl.num_encode(key)
 	else:
 		urlFinal = customaadd
 
-	connection = sql.connect(DBSource)
-	cursor = connection.cursor()
-	querySelect = "SELECT * FROM URLManager WHERE HASH='{0}'".format(urlFinal)
+
+	querySelect = "SELECT * FROM URLManager WHERE URL='{0}'".format(urlprocessar)
 
 	cursor.execute(querySelect)
 	if len(cursor.fetchall()) < 1:
 		query = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
 		cursor.execute(query)
-		connection.commit()
+
 		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
 	else:
-		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
+		querySelectHASH = "SELECT HASH FROM URLManager WHERE URL='{0}'".format(urlprocessar)
+		cursor.execute(querySelectHASH)
+		cursorURL = cursor.fetchone()[0]
+		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, cursorURL)
 
+
+	connection.commit()
 	return render_template("newurl.html",FullURL = CompleteURL)
-
-
-	#If not, insert it into the database
-
-	#CompleteURL = "Your url is: http://{0}{1}{2}".format(BSUrl, BSFolder, urlFinal)
-	#return(CompleteURL)
-
 
 
 #Home Function
@@ -64,8 +65,6 @@ def addURL():
 
 	return(processaURL(URLadd, CustomURL))
 
-
-
 @app.route("/u/<urlcode>", methods=['GET', 'POST'])
 def CheckURL(urlcode):
 	# SELECT URL from URLManager where HASH = urlcode
@@ -77,6 +76,9 @@ def CheckURL(urlcode):
 	RedirectTo = cursor.fetchone()[0]
 	return render_template("render-url.html",RedirectTo = RedirectTo)
 
+# Server Environment
+#if __name__ == "__main__":
+#	app.run(port=BSPort,debug=True,host="0.0.0.0")
 
 if __name__ == "__main__":
-	app.run(port=80,debug=True)
+	app.run(port=8080,debug=True)

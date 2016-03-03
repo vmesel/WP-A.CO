@@ -23,11 +23,13 @@ wp-a/
 ################################################
 ## What we are working on:
 
-- New apprearence for the system
+- New appearence for the system
 
-- Work on Form Validation
+- Add HTTP:// in front of the URL
 
-- Work in Better Ways to get URLs Stored
+- Check if the HASH is already in use
+
+- Get Meta Info of the Pages
 
 ## Functions that can already be used
 
