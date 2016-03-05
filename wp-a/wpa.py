@@ -14,71 +14,82 @@ SECRAND = SystemRandom()
 
 def processaURL(urlprocessar, customaadd):
 
-	connection = sql.connect(DBSource)
-	cursor = connection.cursor()
+ connection = sql.connect(DBSource)
+ cursor = connection.cursor()
 
-	# Check if there is the HTTP:// in the string
-	if "http://" in urlprocessar:
-		urlprocessar = urlprocessar
-	elif "https://" in urlprocessar:
-		urlprocessar = urlprocessar
-	else:
-		urlprocessar = "http://" + urlprocessar
+ # Check if there is the HTTP:// in the string
+ if "http://" in urlprocessar:
+  urlprocessar = urlprocessar
+ elif "https://" in urlprocessar:
+  urlprocessar = urlprocessar
+ else:
+  urlprocessar = "http://" + urlprocessar
 
-	if customaadd == "":
-		key = SECRAND.randint(0, 66 ** 4)
-		urlFinal = safeurl.num_encode(key)
-	else:
-		urlFinal = customaadd
-
-
-	querySelect = "SELECT * FROM URLManager WHERE URL='{0}'".format(urlprocessar)
-
-	cursor.execute(querySelect)
-	if len(cursor.fetchall()) < 1:
-		query = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
-		cursor.execute(query)
-
-		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
-	else:
-		querySelectHASH = "SELECT HASH FROM URLManager WHERE URL='{0}'".format(urlprocessar)
-		cursor.execute(querySelectHASH)
-		cursorURL = cursor.fetchone()[0]
-		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, cursorURL)
+ if customaadd == "":
+  key = SECRAND.randint(0, 66 ** 4)
+  urlFinal = safeurl.num_encode(key)
+ else:
+  urlFinal = customaadd
 
 
-	connection.commit()
-	return render_template("newurl.html",FullURL = CompleteURL)
+ querySelect = "SELECT * FROM URLManager WHERE URL = '{0}'".format(urlprocessar)
+
+ cursor.execute(querySelect)
+#if len(cursor.fetchall()) < 1:
+ if 0 < 1:
+  #return(urlFinal)
+  query = "SELECT case HASH when HASH IS NULL THEN '0' else '1' end from URLManager where HASH = '{0}'".format(urlFinal)
+  cursorNew = connection.cursor()
+  cursorNew.execute(query)
+  sqlquery = str(cursorNew.fetchone()).replace("[", "").replace("]", "")
+  #return(len(str(sqlquery))
+  #return(sqlquery)
+  if sqlquery == "None":
+   #return("Não Existe Ainda!")
+   query2 = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
+   cursorNew.execute(query2)
+  else:
+   return("Erro: Já existe esta hash!")
+  CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
+ else:
+  querySelectHASH = "SELECT HASH FROM URLManager WHERE URL = '{0}'".format(urlprocessar)
+  cursor.execute(querySelectHASH)
+  cursorURL = cursor.fetchone()[0]
+  CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, cursorURL)
+  #CompleteURL = "Já tinha essa URL"
+
+ connection.commit()
+ return render_template("newurl.html",FullURL = CompleteURL)
 
 
 #Home Function
 @app.route("/", methods=['GET', 'POST'])
 def home():
-	return render_template("home.html")
+ return render_template("home.html")
 
 
 @app.route("/add/", methods=['GET', 'POST'])
 def addURL():
-	global URLadd, CustomURL
-	URLadd = request.args.get('url')
-	CustomURL = request.args.get('customshort')
+ global URLadd, CustomURL
+ URLadd = request.args.get('url')
+ CustomURL = request.args.get('customshort')
 
-	return(processaURL(URLadd, CustomURL))
+ return(processaURL(URLadd, CustomURL))
 
 @app.route("/u/<urlcode>", methods=['GET', 'POST'])
 def CheckURL(urlcode):
-	# SELECT URL from URLManager where HASH = urlcode
-	connection = sql.connect(DBSource)
-	cursor = connection.cursor()
-	CheckQuery = "SELECT URL from URLManager where HASH = '{0}'".format(urlcode)
-	cursor.execute(CheckQuery)
-	connection.commit()
-	RedirectTo = cursor.fetchone()[0]
-	return render_template("render-url.html",RedirectTo = RedirectTo)
+ # SELECT URL from URLManager where HASH = urlcode
+ connection = sql.connect(DBSource)
+ cursor = connection.cursor()
+ CheckQuery = "SELECT URL from URLManager where HASH = '{0}'".format(urlcode)
+ cursor.execute(CheckQuery)
+ connection.commit()
+ RedirectTo = cursor.fetchone()[0]
+ return render_template("render-url.html",RedirectTo = RedirectTo)
 
 # Server Environment
 #if __name__ == "__main__":
-#	app.run(port=BSPort,debug=True,host="0.0.0.0")
+# app.run(port=BSPort,debug=True,host="0.0.0.0")
 
 if __name__ == "__main__":
 	app.run(port=8080,debug=True)
