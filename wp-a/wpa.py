@@ -35,8 +35,8 @@ def processaURL(urlprocessar, customaadd):
  querySelect = "SELECT * FROM URLManager WHERE URL = '{0}'".format(urlprocessar)
 
  cursor.execute(querySelect)
-#if len(cursor.fetchall()) < 1:
- if 0 < 1:
+ if len(cursor.fetchall()) < 1:
+ #if 0 < 1:
   #return(urlFinal)
   query = "SELECT case HASH when HASH IS NULL THEN '0' else '1' end from URLManager where HASH = '{0}'".format(urlFinal)
   cursorNew = connection.cursor()
