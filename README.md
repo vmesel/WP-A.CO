@@ -11,9 +11,11 @@ b
 ```
 wp-a/
  - __init__.py
- - system/
-  -- __init__.py
-  -- variables.py
+ - database.py
+ - wsgi.py
+ - wpa.py
+ - lib/
+  -- safeurl.py
  - templates/
   - home.html
   - layouts/
@@ -25,27 +27,23 @@ wp-a/
 
 - New appearence for the system
 
-- Add HTTP:// in front of the URL
-
-- Check if the HASH is already in use
-
-- Get Meta Info of the Pages
+- Get Meta Info of the Pages(For Facebook and Twitter Purposes)
 
 ## Functions that can already be used
 
-This is a Beta version of the code, so you can find and experience some bugs, than, you can report to me or give your solution for the problem in a thread in here or send me via email: me@vmesel.com
+This is a Beta version of the code, so you can find and experience some bugs, than, you can report to github or give your solution for the problem in a thread in here.
+
+If you need to contact me, send me an email at me@vmesel.com
 
 ## How to use as an API
 
-Our URL Shortener isn't just a simple URL Shortener, you can use our own API to create your personal.
-
-To create your own url you just need to make an HTTP Request with the URL:
-
-```
-http://yourwebsite.com/add/?url=URL TO BE SHORTEN&customshort=CUSTOM SHORT URL IF YOU WANT
-```
+We are working on the API part, so we can integrate via:
+- JSON
+- and HTTP Restful
 
 
 ## Available in future
 
-url.com/login/ - This page will allow you to login and see your shortened urls.
+- API
+
+- Login Area for Registered users to add their URLs and domains
