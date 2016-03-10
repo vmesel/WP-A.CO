@@ -36,27 +36,21 @@ def processaURL(urlprocessar, customaadd):
 
  cursor.execute(querySelect)
  if len(cursor.fetchall()) < 1:
- #if 0 < 1:
-  #return(urlFinal)
   query = "SELECT case HASH when HASH IS NULL THEN '0' else '1' end from URLManager where HASH = '{0}'".format(urlFinal)
   cursorNew = connection.cursor()
   cursorNew.execute(query)
   sqlquery = str(cursorNew.fetchone()).replace("[", "").replace("]", "")
-  #return(len(str(sqlquery))
-  #return(sqlquery)
   if sqlquery == "None":
-   #return("Não Existe Ainda!")
    query2 = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
    cursorNew.execute(query2)
   else:
-   return("Erro: Já existe esta hash!")
+   return("Error: This hash already exists!")
   CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
  else:
   querySelectHASH = "SELECT HASH FROM URLManager WHERE URL = '{0}'".format(urlprocessar)
   cursor.execute(querySelectHASH)
   cursorURL = cursor.fetchone()[0]
   CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, cursorURL)
-  #CompleteURL = "Já tinha essa URL"
 
  connection.commit()
  return(CompleteURL)
