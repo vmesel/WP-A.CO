@@ -37,13 +37,10 @@ If you need to contact me, send me an email at me@vmesel.com
 
 ## How to use as an API
 
-We are working on the API part, so we can integrate via:
-- JSON
-- and HTTP Restful
+You will make an HTTP Request for www.yoururlshortener.com/api/?url=YOUR URL&customshort=
+It will automatically make a insertion on your database or get the hash of the same URL that was already shortened so you can access it!
 
 
 ## Available in future
-
-- API
 
 - Login Area for Registered users to add their URLs and domains
