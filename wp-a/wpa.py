@@ -59,7 +59,7 @@ def processaURL(urlprocessar, customaadd):
   #CompleteURL = "Já tinha essa URL"
 
  connection.commit()
- return render_template("newurl.html",FullURL = CompleteURL)
+ return(CompleteURL)
 
 
 #Home Function
@@ -73,8 +73,15 @@ def addURL():
  global URLadd, CustomURL
  URLadd = request.args.get('url')
  CustomURL = request.args.get('customshort')
+ return(render_template("newurl.html",FullURL = processaURL(URLadd, CustomURL)))
 
- return(processaURL(URLadd, CustomURL))
+@app.route("/api/", methods=['GET', 'POST'])
+def apiURL():
+  global URLadd, CustomURL
+  URLadd = request.args.get('url')
+  CustomURL = request.args.get('customshort')
+
+  return(processaURL(URLadd, CustomURL))
 
 @app.route("/u/<urlcode>", methods=['GET', 'POST'])
 def CheckURL(urlcode):
