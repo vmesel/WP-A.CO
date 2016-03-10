@@ -4,7 +4,9 @@ WP-A.CO
 WP-A stands for Web Powered Access, this actually means that the access to an application is going to be made via the web. And for getting you an easy access to your things, its going get your big urls and transform it into small urls.
 
 WP-A.CO is an Open Source URL Shortener project that is being made with Python, SQLite, HTML and CSS.
+
 Anyone who wants, can develop plugins and other stuff for the project to let it alive!
+
 ----
 How to use WP-A.CO
 =================================
