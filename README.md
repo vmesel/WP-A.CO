@@ -1,4 +1,4 @@
-WP-A.CO        |Python Version| |License Type| |Project Stars|
+WP-A.CO 
 ====================
 
 WP-A stands for Web Powered Access, this actually means that the access to an application is going to be made via the web. And for getting you an easy access to your things, its going get your big urls and transform it into small urls.
