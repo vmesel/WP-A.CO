@@ -59,7 +59,15 @@ def processaURL(urlprocessar, customaadd):
 #Home Function
 @app.route("/", methods=['GET', 'POST'])
 def home():
- return render_template("home.html")
+ return render_template("index.html")
+
+@app.route("/new/", methods=['GET', 'POST'])
+def newurl():
+ return render_template("new.html")
+
+@app.route("/about/", methods=['GET', 'POST'])
+def about():
+ return render_template("about.html")
 
 
 @app.route("/add/", methods=['GET', 'POST'])
@@ -67,7 +75,7 @@ def addURL():
  global URLadd, CustomURL
  URLadd = request.args.get('url')
  CustomURL = request.args.get('customshort')
- return(render_template("newurl.html",FullURL = processaURL(URLadd, CustomURL)))
+ return(render_template("added.html",FullURL = processaURL(URLadd, CustomURL)))
 
 @app.route("/api/", methods=['GET', 'POST'])
 def apiURL():

@@ -1,0 +1,27 @@
+{% extends "layouts/baseotherpages.html" %}
+
+{% block head%}
+<!--Just if you want to add some more content to the Head-->
+{% endblock %}
+
+{% block title%}WP-A.CO - Your Open Source URL Shortener!{% endblock %}
+
+{% block Logo%}<h1>WP-A.CO</h1>{% endblock %}
+
+
+{% block bodycontent%}
+<div id="fastshorten">
+  <form action="/add/" method="get">
+    <input type="text" placeholder="short your BIG URL here!" name="url" id="urlhomeinput"><br/>
+    <input type="text" name="customshort" placeholder="Your Custom Alias" id="urlhomeinput">
+    <input type="submit" id="urlhomesubmit" value="Shorten">
+  </form>
+</div>
+<div id="mg10px">
+
+</div>
+{% endblock %}
+
+{% block footer%}
+
+{% endblock %}
