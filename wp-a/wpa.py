@@ -84,7 +84,7 @@ def apiURL():
 	CustomURL = request.args.get('customshort')
 	ReturnMethod = request.args.get('method')
 	if ReturnMethod == "json":
-		return(processaURL(URLadd, CustomURL))
+		return("{ url : '"processaURL(URLadd, CustomURL)"'")
 	elif ReturnMethod == "http":
 		return(processaURL(URLadd, CustomURL))
 	elif ReturnMethod == "":
