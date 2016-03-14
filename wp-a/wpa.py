@@ -82,9 +82,14 @@ def apiURL():
 	global URLadd, CustomURL
 	URLadd = request.args.get('url')
 	CustomURL = request.args.get('customshort')
-
-	return(processaURL(URLadd, CustomURL))
-
+	ReturnMethod = request.args.get('method')
+	if ReturnMethod == "json":
+		return(processaURL(URLadd, CustomURL))
+	elif ReturnMethod == "http":
+		return(processaURL(URLadd, CustomURL))
+	elif ReturnMethod == "":
+		return("Error: No Method Defined!")
+		
 @app.route("/u/<urlcode>", methods=['GET', 'POST'])
 def CheckURL(urlcode):
 	# SELECT URL from URLManager where HASH = urlcode
