@@ -53,7 +53,10 @@ def processaURL(urlprocessar, customaadd):
 		CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, cursorURL)
 
 	connection.commit()
-	return(render_template("added.html",FullURL = CompleteURL))
+	return(CompleteURL)
+
+def NewViewReturn(urlprocessar, customaadd):
+	return(render_template("added.html",FullURL = processaURL(urlprocessar, customaadd)))
 
 
 #Home Function
@@ -75,7 +78,7 @@ def addURL():
 	global URLadd, CustomURL
 	URLadd = request.args.get('url')
 	CustomURL = request.args.get('customshort')
-	return(processaURL(URLadd, CustomURL))
+	return(NewViewReturn(URLadd, CustomURL))
 
 @app.route("/api/", methods=['GET', 'POST'])
 def apiURL():
@@ -83,13 +86,17 @@ def apiURL():
 	URLadd = request.args.get('url')
 	CustomURL = request.args.get('customshort')
 	ReturnMethod = request.args.get('method')
-	if ReturnMethod == "json":
-		return("{ url : '"processaURL(URLadd, CustomURL)"'")
-	elif ReturnMethod == "http":
-		return(processaURL(URLadd, CustomURL))
-	elif ReturnMethod == "":
-		return("Error: No Method Defined!")
-		
+	try:
+		if ReturnMethod == "json":
+			ExitingString = "{ 'url' : " + processaURL(URLadd, CustomURL) + "}"
+			return(ExitingString)
+		elif ReturnMethod == "http":
+			return(processaURL(URLadd, CustomURL))
+		elif ReturnMethod == "":
+			return("Error: No Method Defined!")
+	except ValueError:
+		return(ValueError)
+
 @app.route("/u/<urlcode>", methods=['GET', 'POST'])
 def CheckURL(urlcode):
 	# SELECT URL from URLManager where HASH = urlcode
@@ -103,7 +110,7 @@ def CheckURL(urlcode):
 
 # Server Environment
 #if __name__ == "__main__":
-# app.run(port=BSPort,debug=True,host="0.0.0.0")
+#app.run(port=BSPort,debug=True,host="0.0.0.0")
 
 if __name__ == "__main__":
-	app.run(port=8080,debug=True)
+       app.run(port=8080, debug=True)
