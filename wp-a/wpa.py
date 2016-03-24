@@ -43,7 +43,6 @@ def processaURL(urlprocessar, customaadd):
 		if sqlquery == "None":
 			query2 = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{0}','{1}','{2}')".format(urlFinal, urlprocessar, datetime.datetime.now())
 			cursorNew.execute(query2)
-			CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
 		else:
 			return("Error: This hash already exists!")
 			CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
@@ -57,8 +56,7 @@ def processaURL(urlprocessar, customaadd):
 	return(CompleteURL)
 
 def NewViewReturn(urlprocessar, customaadd):
-	UrlShortened = processaURL(urlprocessar, customaadd)
-	return render_template("added.html", FullURL = UrlShortened)
+	return(render_template("added.html",FullURL = processaURL(urlprocessar, customaadd)))
 
 
 #Home Function
@@ -98,7 +96,7 @@ def apiURL():
 			return("Error: No Method Defined!")
 	except ValueError:
 		return(ValueError)
-		
+
 @app.route("/u/<urlcode>", methods=['GET', 'POST'])
 def CheckURL(urlcode):
 	# SELECT URL from URLManager where HASH = urlcode
@@ -111,8 +109,8 @@ def CheckURL(urlcode):
 	return render_template("render-url.html",RedirectTo = RedirectTo)
 
 # Server Environment
-if __name__ == "__main__":
- app.run(port=BSPort,debug=True,host="0.0.0.0")
-
 #if __name__ == "__main__":
-#	app.run(port=BSPort)
+#app.run(port=BSPort,debug=True,host="0.0.0.0")
+
+if __name__ == "__main__":
+       app.run(port=8080, debug=True)
