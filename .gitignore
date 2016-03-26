@@ -215,3 +215,7 @@ pip-log.txt
 .mr.developer.cfg
 database.db
 *.pyc
+
+*.pyc
+
+*.db
