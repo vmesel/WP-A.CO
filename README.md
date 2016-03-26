@@ -6,6 +6,12 @@ WP-A stands for Web Powered Access, this actually means that the access to an ap
 WP-A.CO is an Open Source URL Shortener project that is being made with Python, SQLite, HTML and CSS.
 Anyone who wants, can develop plugins and other stuff for the project to let it alive!
 ################################################
+## What Development Version Means?
+
+The Development Version means that this software is on some early stages of being released, so if you are not an experienced developer, get out of the way right now.
+
+
+################################################
 ## Structure
 ```
 wp-a/
@@ -25,14 +31,14 @@ wp-a/
 
 - Get Meta Info of the Pages(For Facebook and Twitter Purposes)
 
+- New Functions at Functions.PY
+
+- Security features to make the system more protected
+
+- Statistics and reporting things
+
 ## Functions that can already be used
 
-This is a Beta version of the code, so you can find and experience some bugs, than, you can report to github or give your solution for the problem in a thread in here.
+This is a Beta version of the code, so you can experience some bugs and codes that are not finished, so, you can report them to the GitHub Issues.
 
-If you need to contact me, send me an email at me@vmesel.com
-
-## Available in future
-
-- URL Statistics and URL Board
-
-- Login Area for Registered users to add their URLs and domains
+If you need some extra help, send me an email at me@vmesel.com
