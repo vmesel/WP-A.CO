@@ -12,6 +12,8 @@ from settings import *
 
 connection = sql.connect(DBSource)
 cursor = connection.cursor()
+t = datetime.datetime.now()
+SECRAND = SystemRandom()
 
 class Database:
 	def InsertURL(Hash, URL, Date):
@@ -58,7 +60,7 @@ class DefaultFunctions():
 			cursorNew.execute(str(Database.InsertURL(urlFinal, urlprocessar, datetime.datetime.now())))
 			connection.commit()
 			return("http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal))
-			
+
 		else:
 			return("Error: This hash already exists!")
 			#CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
