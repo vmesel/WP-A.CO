@@ -1,6 +1,9 @@
 """
-THIS IS THE FUNCTIONS FILE!
+********************************** THIS IS THE FUNCTIONS FILE! **********************************
+If you aren't an experienced programmer explore with caution,
+but if you want to contribute to the project, this is the right file to edit(EDIT WITH CAUTION).
 """
+
 from flask import Flask,render_template,redirect,request
 import random
 import datetime
@@ -64,3 +67,36 @@ class DefaultFunctions():
 		else:
 			return("Error: This hash already exists!")
 			#CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
+
+		def AccesURL():
+			pass
+
+		def URLClickingHistory():
+			#This function must get the url and add 1 click to the History table on the Database
+			pass
+
+
+class Security:
+	def Login():
+		# Add a table of users, passwords, hashes and etc
+		# Define user capabilities and powers! - sysadmin has unlimited power -
+		pass
+
+	def RegisterUser():
+		pass
+
+	def RegisterURL():
+		# Define if the URL is acessed only by the user, by registered users or etc
+		pass
+
+
+class Reporting:
+	def ReportContent():
+		pass
+
+
+	def Report():
+		pass
+
+	def SendReport():
+		pass

@@ -100,6 +100,7 @@ def apiURL():
 
 @app.route("/u/<urlcode>", methods=['GET', 'POST'])
 def CheckURL(urlcode):
+	# Copy this to DefaultFunctions.AccesURL()
 	# SELECT URL from URLManager where HASH = urlcode
 	connection = sql.connect(DBSource)
 	cursor = connection.cursor()
@@ -114,4 +115,4 @@ def CheckURL(urlcode):
 #app.run(port=BSPort,debug=True,host="0.0.0.0")
 
 if __name__ == "__main__":
-       app.run(port=8080, debug=True)
+       app.run(port=BSPort, debug=True, host=BSHost)
