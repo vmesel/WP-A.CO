@@ -37,6 +37,8 @@ wp-a/
 
 - Statistics and reporting things
 
+- "Running over commit:...." > in the footer
+
 ## Functions that can already be used
 
 This is a Beta version of the code, so you can experience some bugs and codes that are not finished, so, you can report them to the GitHub Issues.
