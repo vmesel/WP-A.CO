@@ -14,13 +14,13 @@ The Development Version means that this software is on some early stages of bein
 ################################################
 ## What we are working on:
 
-- New appearance for the system
+- New appearance for the system(based on Bootstrap)
 
 - Get Meta Info of the Pages(For Facebook and Twitter Purposes)
 
 - New Functions at Functions.PY
 
-- Security features to make the system more protected
+- Security features to make the system more protected(Preventing SQL Injection and Session Hijack)
 
 - Statistics and reporting things
 
