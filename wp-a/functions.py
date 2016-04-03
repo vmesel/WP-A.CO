@@ -83,9 +83,15 @@ class DefaultFunctions():
 
 class Security:
 	def Login():
-		# Add a table of users, passwords, hashes and etc
-		# Define user capabilities and powers! - sysadmin has unlimited power -
+		#LoginError = None
+		if request.method == "POST":
+			if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+				LoginError = "Invalid credentials!"
+			else:
+				return render_template("render-url.html",RedirectTo = "/about/")
+				#return(redirect(url_for('about')))
 		pass
+
 
 	def RegisterUser():
 		pass

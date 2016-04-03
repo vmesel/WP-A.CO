@@ -1,9 +1,10 @@
-from flask import Flask,render_template,redirect,request
+from flask import Flask,render_template,redirect,request,session,url_for
 from hashids import Hashids
 from functions import *
 
 cypher = Hashids(salt = "WP-A.co")
 app = Flask(__name__)
+app.secret_key = "wp-a.co key"
 
 def NewViewReturn(urlprocessar, customaadd):
 	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd)))
@@ -27,9 +28,9 @@ def loginPage():
 		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
 			LoginError = "Invalid credentials!"
 		else:
+			session['logged_in'] = True
 			return render_template("render-url.html",RedirectTo = "/about/")
-			#return(redirect(url_for('about')))
-	return(render_template("login.html",error=LoginError))
+	return(render_template("login.html",error = LoginError))
 
 
 @app.route("/add/", methods=['GET', 'POST'])
