@@ -219,3 +219,4 @@ database.db
 *.pyc
 
 *.db
+__pycache__

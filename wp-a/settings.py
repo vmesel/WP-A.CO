@@ -16,6 +16,8 @@ SECRAND = SystemRandom()
 WebsiteName = "My Custom URL Shortener" # Name of the website
 BSUrl = "localhost:8080" # Base url for the whole website
 BSFolder = "/" # Base folder for the application
-BSHost = "0.0.0.0"
+# If you are hosting this app on a server, change the Host to "0.0.0.0"
+BSHost = "127.0.0.1"
 DBSource = "database.db" # database name
 BSPort = 8080
+DBGState = True # The debugging state of the application

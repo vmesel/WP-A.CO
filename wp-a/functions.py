@@ -68,12 +68,17 @@ class DefaultFunctions():
 			return("Error: This hash already exists!")
 			#CompleteURL = "http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal)
 
-		def AccesURL():
-			pass
+	def AccessURL(urlcode):
+		connection = sql.connect(DBSource)
+		cursor = connection.cursor()
+		CheckQuery = "SELECT URL from URLManager where HASH = '{0}'".format(urlcode)
+		cursor.execute(CheckQuery)
+		connection.commit()
+		return(cursor.fetchone()[0])
 
-		def URLClickingHistory():
-			#This function must get the url and add 1 click to the History table on the Database
-			pass
+	def URLClickingHistory():
+		#This function must get the url and add 1 click to the History table on the Database
+		pass
 
 
 class Security:
@@ -89,6 +94,9 @@ class Security:
 		# Define if the URL is acessed only by the user, by registered users or etc
 		pass
 
+	def DoLogin():
+		#Create the session and everything needed to authenticate
+		pass
 
 class Reporting:
 	def ReportContent():
