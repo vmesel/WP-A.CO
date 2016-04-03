@@ -22,11 +22,18 @@ def about():
 
 @app.route("/login/", methods=['GET', 'POST'])
 def loginPage():
-	return render_template("login.html")
+	LoginError = None
+	if request.method == "POST":
+		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+			LoginError = "Invalid credentials!"
+		else:
+			return render_template("render-url.html",RedirectTo = "/about/")
+			#return(redirect(url_for('about')))
+	return(render_template("login.html",error=LoginError))
 
 
 @app.route("/add/", methods=['GET', 'POST'])
-def login():
+def addRouting():
 	global URLadd, CustomURL
 	URLadd = request.args.get('url')
 	CustomURL = request.args.get('customshort')

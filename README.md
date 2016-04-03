@@ -25,3 +25,7 @@ The Development Version means that this software is on some early stages of bein
 - Statistics and reporting things
 
 - "Running over commit:...." > in the footer
+
+- Database modification for running a user database! (Modifiying the URLManager table and adding a User table)
+
+- Work on better versioning for WP-A and building states! 
