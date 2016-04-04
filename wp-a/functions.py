@@ -28,6 +28,8 @@ class Database:
 
 
 class DefaultFunctions():
+
+
 	def CheckURLPrefix(urlprocessar):
 		if "http://" in urlprocessar:
 			return(urlprocessar)

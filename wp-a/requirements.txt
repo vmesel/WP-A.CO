@@ -2,3 +2,4 @@ flask
 flask-wtf
 hashids
 uwsgi
+gitpython

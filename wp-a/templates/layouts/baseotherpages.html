@@ -53,6 +53,7 @@
 
 
       <div id="presentation">
+
         {% block bodycontent%}
         {% endblock %}
       </div>
@@ -62,8 +63,11 @@
     <!--Section End-->
     <!--Footer Start-->
     <footer>
+        <div id="mg10px">
+    <b>Running over commit: </b><i>{{git_hash}}</i> -
       {% block footer%}
       {% endblock %}
+  </div>
     </footer>
     <!--Footer End-->
 

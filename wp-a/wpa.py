@@ -1,25 +1,33 @@
 from flask import Flask,render_template,redirect,request,session,url_for
 from hashids import Hashids
 from functions import *
+from git import Repo
+import os
+import subprocess
 
 cypher = Hashids(salt = "WP-A.co")
 app = Flask(__name__)
 app.secret_key = "wp-a.co key"
+#repo = Repo(os.getcwd())
+#master = repo.head.reference
+#git_hash = master.commit.hexsha
+git_hash = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8')
+git_hash = git_hash[:6] 
 
 def NewViewReturn(urlprocessar, customaadd):
-	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd)))
+	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd, git_hash = git_hash)))
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-	return render_template("index.html")
+	return render_template("index.html", git_hash = git_hash)
 
 @app.route("/new/", methods=['GET', 'POST'])
 def newurl():
-	return render_template("new.html")
+	return render_template("new.html", git_hash = git_hash)
 
 @app.route("/about/", methods=['GET', 'POST'])
 def about():
-	return render_template("about.html")
+	return render_template("about.html", git_hash = git_hash)
 
 @app.route("/login/", methods=['GET', 'POST'])
 def loginPage():
@@ -32,6 +40,12 @@ def loginPage():
 			return render_template("render-url.html",RedirectTo = "/about/")
 	return(render_template("login.html",error = LoginError))
 
+@app.route("/restrict/", methods=['GET', 'POST'])
+def RestrictedArea():
+	if session['logged_in'] == True:
+		return render_template("restrict.html", git_hash = git_hash)
+	else:
+		return render_template("render-url.html",RedirectTo = "/about/")
 
 @app.route("/add/", methods=['GET', 'POST'])
 def addRouting():
