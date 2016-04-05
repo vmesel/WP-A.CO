@@ -222,3 +222,5 @@ database.db
 __pycache__
 *.db
 wp-a/database.db
+
+*.pyc

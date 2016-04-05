@@ -24,8 +24,20 @@ The Development Version means that this software is on some early stages of bein
 
 - Statistics and reporting things
 
-- "Running over commit:...." > in the footer
+- Cryptography for the database
 
-- Database modification for running a user database! (Modifiying the URLManager table and adding a User table)
+###For Service Intelligence:
 
-- Work on better versioning for WP-A and building states! 
+- Recognize URLs with badwords and don't let people add them
+
+###For Registered users:
+
+- Statistics for their urls(Available in the future)
+
+- Pay a monthly fee to get a fully functional API with whitelabel domain
+
+###SuperAdmin
+
+- Capability to delete URLs
+
+- Change Meta Tags for URLs

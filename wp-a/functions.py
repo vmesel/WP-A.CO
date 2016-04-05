@@ -29,7 +29,6 @@ class Database:
 
 class DefaultFunctions():
 
-
 	def CheckURLPrefix(urlprocessar):
 		if "http://" in urlprocessar:
 			return(urlprocessar)
@@ -38,7 +37,6 @@ class DefaultFunctions():
 		else:
 			urlprocessar = "http://" + urlprocessar
 			return(urlprocessar)
-
 
 	def CustomAlias(customaadd):
 		if customaadd == "":
@@ -52,13 +50,10 @@ class DefaultFunctions():
 		cursor = connection.cursor()
 		cursorNew = connection.cursor()
 		CompleteURL = ""
-
-
 		urlprocessar = DefaultFunctions.CheckURLPrefix(urlprocessar)
 		urlFinal = DefaultFunctions.CustomAlias(customaadd)
-
+		# Get URL Facebook and twitter stuff
 		querySelect = "SELECT * FROM URLManager WHERE HASH = '{0}'".format(urlFinal)
-
 		cursor.execute(querySelect)
 
 		if len(cursor.fetchall()) == 0:
@@ -102,9 +97,7 @@ class Security:
 		# Define if the URL is acessed only by the user, by registered users or etc
 		pass
 
-	def DoLogin():
-		#Create the session and everything needed to authenticate
-		pass
+
 
 class Reporting:
 	def ReportContent():
