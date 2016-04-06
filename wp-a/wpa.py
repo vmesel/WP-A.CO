@@ -113,11 +113,8 @@ def logout():
 @app.route("/restrict/", methods=['GET', 'POST'])
 @login_required
 def RestrictedArea():
-	if session['logged_in'] == True:
-		return render_template("restrict.html", git_hash = git_hash)
-	else:
-		return render_template("render-url.html",RedirectTo = "/about/")
-
+	return render_template("restrict.html", git_hash = git_hash)
+	
 
 if __name__ == "__main__":
        app.run(port=BSPort, debug=DBGState, host=BSHost)
