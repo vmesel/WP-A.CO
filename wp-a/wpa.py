@@ -27,6 +27,10 @@ def login_required(f):
 def NewViewReturn(urlprocessar, customaadd):
 	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd), git_hash = git_hash))
 
+@app.route("/home-test/", methods=['GET', 'POST'])
+def homeNew():
+	return render_template("index2.html", git_hash = git_hash, jumbotroner = False)
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
 	return render_template("index.html", git_hash = git_hash)
