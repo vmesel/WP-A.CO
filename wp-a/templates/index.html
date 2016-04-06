@@ -10,17 +10,31 @@
 
 
 {% block bodycontent%}
-<p>WP-A stands for Web Powered Access, this software was made to help you reach out all the web and explore it via a minimal link getting you rid of problems.</p>
-<p>WP-A.CO is an Open Source URL Shortener project that is being made with Python, SQLite, HTML and CSS. And this server runs at this specs</p>
-<p>
-  <ul>
-  <strong><li>512MB RAM</li></strong>
-  <strong><li>20GBs SDD</li></strong>
-  <strong><li>Ubuntu 14.04 Server</li></strong>
-  </ul>
-</p>
 
-<p>Anyone who wants to contribute to the development, can help with plugins, themes and other stuff to let the project alive!</p>
+
+  <div id="fastshorten">
+    <form action="/add/" method="get">
+      <input type="url" placeholder="short your BIG URL here!" name="url" id="urlhomeinput" required><br/>
+      <input type="hidden" name="customshort" value="">
+      <input type="submit" id="urlhomesubmit" value="Shorten">
+    </form>
+  </div>
+<br/>
+  <p>WP-A stands for Web Powered Access, this software was made to help you reach out all the web and explore it via a minimal link getting you rid of problems.</p>
+  <p>WP-A.CO is an Open Source URL Shortener project that is being made with Python, SQLite, HTML and CSS. And this server runs at this specs</p>
+  <p>
+    <ul>
+    <strong><li>512MB RAM</li></strong>
+    <strong><li>20GBs SDD</li></strong>
+    <strong><li>Ubuntu 14.04 Server</li></strong>
+    </ul>
+  </p>
+
+  <p>Anyone who wants to contribute to the development, can help with plugins, themes and other stuff to let the project alive!</p>
+
+
+
+
 {% endblock %}
 
 {% block footer%}

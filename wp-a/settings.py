@@ -19,5 +19,5 @@ BSFolder = "/" # Base folder for the application
 # If you are hosting this app on a server, change the Host to "0.0.0.0"
 BSHost = "127.0.0.1"
 DBSource = "database.db" # database name
-BSPort = 8080
+BSPort = 8081
 DBGState = True # The debugging state of the application

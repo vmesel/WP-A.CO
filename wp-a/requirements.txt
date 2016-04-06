@@ -1,4 +1,5 @@
 Flask==0.10.1
+Flask-Login==0.3.2
 Flask-WTF==0.12
 gitdb==0.6.4
 GitPython==1.0.2
@@ -6,6 +7,7 @@ hashids==1.1.0
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
+passlib==1.6.5
 smmap==0.9.0
 uWSGI==2.0.12
 Werkzeug==0.11.5

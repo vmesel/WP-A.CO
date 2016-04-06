@@ -3,6 +3,7 @@ from functools import wraps
 from hashids import Hashids
 from functions import *
 from git import Repo
+from passlib.hash import sha256_crypt as sha256
 import os
 import subprocess
 
@@ -24,7 +25,7 @@ def login_required(f):
     return decorated_function
 
 def NewViewReturn(urlprocessar, customaadd):
-	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd, git_hash = git_hash)))
+	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd), git_hash = git_hash))
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -77,31 +78,29 @@ def register():
 
 @app.route("/login/", methods=['GET', 'POST'])
 def loginPage():
-	# Check if user is already logged in
-
 	LoginError = None
 	if request.method == 'POST':
 		userform = request.form['username']
 		connection = sql.connect(DBSource)
 		c = connection.cursor()
-		sqllogin = "SELECT PASSWORD FROM Users WHERE USERNAME = '{}'".format(str(userform))
+		sqllogin = "SELECT PASSWORD,USERTYPE FROM Users WHERE USERNAME = '{}'".format(str(userform))
 		value = c.execute(sqllogin)
 		value = c.fetchone()
-
 		try:
-			if request.form['password'] == str(value[0]):
+			if sha256.verify(str(request.form['password']),str(value[0])) == True:
 				session["logged_in"] = True
 				session["username"] = userform
-				return render_template("render-url.html",RedirectTo = "/restrict/")
+				session["usertype"] = str(value[1])
+				return render_template("render-url.html",RedirectTo = "/restrict/", git_hash = git_hash)
 			else:
 				LoginError = "Invalid credentials!"
-				return render_template("login.html", error=LoginError)
+				return render_template("login.html", error=LoginError, git_hash = git_hash)
 		except Exception:
 			LoginError = "Invalid credentials!"
-			return render_template("login.html", error=LoginError)
+			return render_template("login.html", error=LoginError, git_hash = git_hash)
 
 
-	return(render_template("login.html",error = LoginError))
+	return(render_template("login.html",error = LoginError, git_hash = git_hash))
 
 
 @app.route("/logout/", methods=['GET', 'POST'])
@@ -114,7 +113,7 @@ def logout():
 @login_required
 def RestrictedArea():
 	return render_template("restrict.html", git_hash = git_hash)
-	
+
 
 if __name__ == "__main__":
        app.run(port=BSPort, debug=DBGState, host=BSHost)
