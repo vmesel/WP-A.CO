@@ -14,7 +14,7 @@ SECRAND = SystemRandom()
 
 # USER DEFINED VARIABLES
 WebsiteName = "My Custom URL Shortener" # Name of the website
-BSUrl = "localhost:8080" # Base url for the whole website
+BSUrl = "localhost:8081" # Base url for the whole website
 BSFolder = "/" # Base folder for the application
 # If you are hosting this app on a server, change the Host to "0.0.0.0"
 BSHost = "127.0.0.1"

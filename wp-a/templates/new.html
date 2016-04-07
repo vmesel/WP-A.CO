@@ -1,4 +1,4 @@
-{% extends "layouts/baselayout.html" %}
+{% extends "layouts/baselayout-bootstrap.html" %}
 
 {% block head%}
 <!--Just if you want to add some more content to the Head-->
@@ -6,20 +6,19 @@
 
 {% block title%}WP-A.CO - Your Open Source URL Shortener!{% endblock %}
 
-{% block Logo%}<h1>WP-A.CO</h1>{% endblock %}
+{% block Logo%}WP-A.CO{% endblock %}
 
+{% block jumbocontent%}
+<h1>Short your URL!</h1>
+<form action="/add/" method="get">
+  <input type="text" name="url" value="" class="form-control" style="height:50px;font-size:20px;" placeholder="The longest URL in the Earth">
+  <input type="text" name="customshort" class="form-control" style="height:50px;font-size:20px;" value="" placeholder="Your Custom Alias"><br/>
+  <input type="submit" value="Shorten" class="btn btn-primary btn-lg">
+</form>
+{% endblock %}
 
 {% block bodycontent%}
-<div id="fastshorten">
-  <form action="/add/" method="get">
-    <input type="text" placeholder="short your BIG URL here!" name="url" id="urlhomeinput"><br/>
-    <input type="text" name="customshort" placeholder="Your Custom Alias" id="urlhomeinput">
-    <input type="submit" id="urlhomesubmit" value="Shorten">
-  </form>
-</div>
-<div id="mg10px">
 
-</div>
 {% endblock %}
 
 {% block footer%}

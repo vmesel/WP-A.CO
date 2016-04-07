@@ -1,4 +1,4 @@
-{% extends "layouts/baselayout.html" %}
+{% extends "layouts/baselayout-bootstrap.html" %}
 
 {% block head%}
 <!--Just if you want to add some more content to the Head-->
@@ -6,17 +6,12 @@
 
 {% block title%}WP-A.CO - Your Open Source URL Shortener!{% endblock %}
 
-{% block Logo%}<h1>WP-A.CO</h1>{% endblock %}
+{% block Logo%}WP-A.CO{% endblock %}
 
-
-{% block bodycontent%}
-<div id="mg10px">
-This is the restricted Area!
-Use here with caution!
-</div>
+{% block jumbocontent%}
+<h3>Welcome, {{session.username}}! Are you ready to short your URLs?</h3>
 {% endblock %}
 
-{% block footer%}
-
-<italic>WP-A.CO - Your Open Source URL Shortener!</italic>
+{% block bodycontent%}
+<h2>Dashboard</h2>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "layouts/baselayout.html" %}
+{% extends "layouts/baselayout-bootstrap.html" %}
 
 {% block head%}
 <!--Just if you want to add some more content to the Head-->
@@ -6,14 +6,16 @@
 
 {% block title%}WP-A.CO - Your Open Source URL Shortener!{% endblock %}
 
-{% block Logo%}<h1>WP-A.CO</h1>{% endblock %}
+{% block Logo%}WP-A.CO{% endblock %}
+
+{% block jumbocontent%}
+<h2>Your new URL is: <a href = "{{FullURL}}">{{FullURL}}</a></h2>
+{% endblock %}
 
 
 {% block bodycontent%}
-<div id="mg10px">
-<h2>Your new URL is: <a href = "{{FullURL}}">{{FullURL}}</a></h2>
-
-<p>If you want to create a new URL <a href="/new/">click here</a>, or if you want to create a new URL with the customized alias, <a href="/new/">click here!</a></p>
+<div class="container">
+<h4>If you want to create a new URL <a href="/new/">click here</a>, or if you want to create a new URL with the customized alias, <a href="/new/">click here!</a></h4>
 </div>
 {% endblock %}
 

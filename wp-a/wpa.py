@@ -25,23 +25,15 @@ def login_required(f):
     return decorated_function
 
 def NewViewReturn(urlprocessar, customaadd):
-	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd), git_hash = git_hash))
-
-@app.route("/home-test/", methods=['GET', 'POST'])
-def homeNew():
-	return render_template("index2.html", git_hash = git_hash, jumbotroner = False)
+	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd), git_hash = git_hash, jumbotroner = True))
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-	return render_template("index.html", git_hash = git_hash)
+	return render_template("index.html", git_hash = git_hash, jumbotroner = True)
 
 @app.route("/new/", methods=['GET', 'POST'])
 def newurl():
-	return render_template("new.html", git_hash = git_hash)
-
-@app.route("/about/", methods=['GET', 'POST'])
-def about():
-	return render_template("about.html", git_hash = git_hash)
+	return render_template("new.html", git_hash = git_hash, jumbotroner = True)
 
 @app.route("/add/", methods=['GET', 'POST'])
 def addRouting():
@@ -104,7 +96,7 @@ def loginPage():
 			return render_template("login.html", error=LoginError, git_hash = git_hash)
 
 
-	return(render_template("login.html",error = LoginError, git_hash = git_hash))
+	return(render_template("login.html",error = LoginError, git_hash = git_hash,jumbotroner = True,))
 
 
 @app.route("/logout/", methods=['GET', 'POST'])
@@ -116,7 +108,7 @@ def logout():
 @app.route("/restrict/", methods=['GET', 'POST'])
 @login_required
 def RestrictedArea():
-	return render_template("restrict.html", git_hash = git_hash)
+	return render_template("restrict.html", git_hash = git_hash, jumbotroner = True, noRows = True)
 
 
 if __name__ == "__main__":
