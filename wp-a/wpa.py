@@ -24,8 +24,8 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-def NewViewReturn(urlprocessar, customaadd):
-	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd), git_hash = git_hash, jumbotroner = True))
+def NewViewReturn(urlprocessar, customaadd, PrivateURL,CreatorID):
+	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd, PrivateURL,CreatorID), git_hash = git_hash, jumbotroner = True))
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -40,7 +40,12 @@ def addRouting():
 	global URLadd, CustomURL
 	URLadd = request.args.get('url')
 	CustomURL = request.args.get('customshort')
-	return(NewViewReturn(URLadd, CustomURL))
+	PrivateURL = request.args.get('privateurl')
+	CreatorID = 0
+	if "userid" in session:
+		CreatorID = session['userid']
+
+	return(NewViewReturn(URLadd, CustomURL, PrivateURL,CreatorID))
 
 @app.route("/api/", methods=['GET', 'POST'])
 def apiURL():
@@ -79,14 +84,16 @@ def loginPage():
 		userform = request.form['username']
 		connection = sql.connect(DBSource)
 		c = connection.cursor()
-		sqllogin = "SELECT PASSWORD,USERTYPE FROM Users WHERE USERNAME = '{}'".format(str(userform))
+		sqllogin = "SELECT ID,PASSWORD,USERTYPE FROM Users WHERE USERNAME = '{}'".format(str(userform))
 		value = c.execute(sqllogin)
 		value = c.fetchone()
 		try:
-			if sha256.verify(str(request.form['password']),str(value[0])) == True:
+			if sha256.verify(str(request.form['password']),str(value[1])) == True:
 				session["logged_in"] = True
 				session["username"] = userform
-				session["usertype"] = str(value[1])
+				session["userid"] = str(value[0])
+				session["usertype"] = str(value[2])
+				#return(session["userid"])
 				return render_template("render-url.html",RedirectTo = "/restrict/", git_hash = git_hash)
 			else:
 				LoginError = "Invalid credentials!"
@@ -97,6 +104,16 @@ def loginPage():
 
 
 	return(render_template("login.html",error = LoginError, git_hash = git_hash,jumbotroner = True,))
+
+
+@app.route("/p/<urlcode>", methods=['GET', 'POST'])
+def CheckPrivateURL(urlcode):
+	RedirectTo = DefaultFunctions.AccessPrivateURL(urlcode)
+	return render_template("render-url.html",RedirectTo = RedirectTo)
+
+@app.route("/privateurl/", methods=['GET', 'POST'])
+def failPrivate():
+    return render_template("render-url.html",RedirectTo = "/")
 
 
 @app.route("/logout/", methods=['GET', 'POST'])

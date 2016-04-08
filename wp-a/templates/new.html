@@ -13,6 +13,11 @@
 <form action="/add/" method="get">
   <input type="text" name="url" value="" class="form-control" style="height:50px;font-size:20px;" placeholder="The longest URL in the Earth">
   <input type="text" name="customshort" class="form-control" style="height:50px;font-size:20px;" value="" placeholder="Your Custom Alias"><br/>
+
+  {%if session.logged_in %}
+  <p>Is this a private URL? <input type="checkbox" name="privateurl" class="btn btn-primary btn-lg"> </p>
+  {%endif%}
+
   <input type="submit" value="Shorten" class="btn btn-primary btn-lg">
 </form>
 {% endblock %}

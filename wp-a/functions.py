@@ -4,7 +4,7 @@ If you aren't an experienced programmer explore with caution,
 but if you want to contribute to the project, this is the right file to edit(EDIT WITH CAUTION).
 """
 
-from flask import Flask,render_template,redirect,request
+from flask import Flask,render_template,redirect,request,session,url_for, flash
 import random
 import datetime
 import sqlite3 as sql
@@ -19,8 +19,8 @@ t = datetime.datetime.now()
 SECRAND = SystemRandom()
 
 class Database:
-	def InsertURL(Hash, URL, Date):
-		InsertQuery = "INSERT INTO URLManager(HASH, URL, DATE) VALUES('{}','{}','{}');".format(Hash, URL, Date)
+	def InsertURL(Hash, URL, Date, Private, Creator):
+		InsertQuery = "INSERT INTO URLManager(HASH, URL, DATE, PRIVATE, CREATOR) VALUES('{}','{}','{}','{}','{}');".format(Hash, URL, Date, Private, Creator)
 		return(InsertQuery)
 
 	def Select():
@@ -45,7 +45,7 @@ class DefaultFunctions():
 		else:
 			return(customaadd)
 
-	def URLProcessing(urlprocessar, customaadd):
+	def URLProcessing(urlprocessar, customaadd, privateurl,CreatorID):
 		connection = sql.connect(DBSource)
 		cursor = connection.cursor()
 		cursorNew = connection.cursor()
@@ -55,11 +55,18 @@ class DefaultFunctions():
 		# Get URL Facebook and twitter stuff
 		querySelect = "SELECT * FROM URLManager WHERE HASH = '{0}'".format(urlFinal)
 		cursor.execute(querySelect)
+		urlprefix = "u/"
+		if privateurl == "on":
+			Private = 1
+			urlprefix = "p/"
+		else:
+			Private = 0
+
 
 		if len(cursor.fetchall()) == 0:
-			cursorNew.execute(str(Database.InsertURL(urlFinal, urlprocessar, datetime.datetime.now())))
+			cursorNew.execute(str(Database.InsertURL(urlFinal, urlprocessar, datetime.datetime.now(), Private, CreatorID)))
 			connection.commit()
-			return("http://{0}{1}u/{2}".format(BSUrl, BSFolder, urlFinal))
+			return("http://{0}{1}{2}{3}".format(BSUrl,BSFolder,urlprefix, urlFinal))
 
 		else:
 			return("Error: This hash already exists!")
@@ -68,44 +75,31 @@ class DefaultFunctions():
 	def AccessURL(urlcode):
 		connection = sql.connect(DBSource)
 		cursor = connection.cursor()
-		CheckQuery = "SELECT URL from URLManager where HASH = '{0}'".format(urlcode)
+		CheckQuery = "SELECT PRIVATE from URLManager where HASH = '{0}'".format(urlcode)
 		cursor.execute(CheckQuery)
 		connection.commit()
-		return(cursor.fetchone()[0])
+		if cursor.fetchone()[0] == 0:
+			cursortwo = connection.cursor()
+			SecondQuery = "SELECT URL from URLManager where HASH = '{0}'".format(urlcode)
+			cursortwo.execute(SecondQuery)
+			connection.commit()
+			return(cursortwo.fetchone()[0])
+		return("http://" + BSUrl + BSFolder + "privateurl/")
 
-	def URLClickingHistory():
-		#This function must get the url and add 1 click to the History table on the Database
-		pass
-
-
-class Security:
-	def Login():
-		#LoginError = None
-		if request.method == "POST":
-			if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-				LoginError = "Invalid credentials!"
+	def AccessPrivateURL(urlcode):
+		connection = sql.connect(DBSource)
+		cursor = connection.cursor()
+		cursortwo = connection.cursor()
+		FirstQuery = "SELECT CREATOR from URLManager where HASH = '{0}'".format(urlcode)
+		cursor.execute(FirstQuery)
+		connection.commit()
+		try:
+			if cursor.fetchone()[0] == session["userid"]:
+				SecondQuery = "SELECT URL from URLManager where HASH = '{0}'".format(urlcode)
+				cursortwo.execute(SecondQuery)
+				connection.commit()
+				return(cursortwo.fetchone()[0])
 			else:
-				return render_template("render-url.html",RedirectTo = "/about/")
-				#return(redirect(url_for('about')))
-		pass
-
-
-	def RegisterUser():
-		pass
-
-	def RegisterURL():
-		# Define if the URL is acessed only by the user, by registered users or etc
-		pass
-
-
-
-class Reporting:
-	def ReportContent():
-		pass
-
-
-	def Report():
-		pass
-
-	def SendReport():
-		pass
+				return("http://" + BSUrl + BSFolder + "privateurl/")
+		except Exception:
+			return("http://" + BSUrl + BSFolder + "privateurl/")

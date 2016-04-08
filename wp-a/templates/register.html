@@ -1,4 +1,4 @@
-{% extends "layouts/baselayout.html" %}
+{% extends "layouts/baselayout-bootstrap.html" %}
 
 {% block head%}
 <!--Just if you want to add some more content to the Head-->
@@ -6,7 +6,7 @@
 
 {% block title%}WP-A.CO - Your Open Source URL Shortener!{% endblock %}
 
-{% block Logo%}<h1>WP-A.CO</h1>{% endblock %}
+{% block Logo%}WP-A.CO{% endblock %}
 
 
 {% block bodycontent%}
@@ -19,7 +19,9 @@
       {% endif %}
     <br/>
     <form class="" action="/login/" method="post">
+        <input type="text" name="name"  placeholder="Username"><br/>
         <input type="text" name="username"  placeholder="Username"><br/>
+        <input type="text" name="email"  placeholder="Username"><br/>
         <input name="password" type="password" placeholder="Password">
         <input type="submit" name="name" value="Login"><br/>
         If you don't have a username, click here to <a href="#">sign up</a>!
