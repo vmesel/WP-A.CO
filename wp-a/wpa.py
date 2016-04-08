@@ -50,7 +50,7 @@ def home():
 
 
 @app.route("/forgotten/", methods=['GET', 'POST'])
-def register():
+def forgotten():
 	return render_template("forgotten.html")
 
 @app.route("/new/", methods=['GET', 'POST'])
