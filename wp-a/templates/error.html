@@ -1,0 +1,37 @@
+{% extends "layouts/baselayout-bootstrap.html" %}
+
+{% block head%}
+<!--Just if you want to add some more content to the Head-->
+<style>
+#share-buttons img {
+width: 35px;
+padding: 5px;
+border: 0;
+box-shadow: 0;
+display: inline;
+}
+</style>
+{% endblock %}
+
+{% block title%}WP-A.CO - Your Open Source URL Shortener!{% endblock %}
+
+{% block Logo%}WP-A.CO{% endblock %}
+
+{% block jumbocontent%}
+<h2>That’s an error.</h2>
+<p>Have you tried repasting the URL? Access our <a href="/">home</a> to learn more about.</p>
+
+</div>
+{% endblock %}
+
+
+{% block bodycontent%}
+<div class="container">
+<h4>If you want to create a new URL <a href="/new/">click here</a>, or if you want to learn more about the project, <a href="/">click here</a></h4>
+</div>
+{% endblock %}
+
+{% block footer%}
+
+<italic>WP-A.CO - Your Open Source URL Shortener!</italic>
+{% endblock %}

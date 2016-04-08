@@ -7,9 +7,9 @@ from passlib.hash import sha256_crypt as sha256
 import os
 import subprocess
 
-cypher = Hashids(salt = "WP-A.co")
+cypher = Hashids(salt = "WP-A.co") # Please, change this key to get a more secure system
 app = Flask(__name__)
-app.secret_key = "wp-a.co key"
+app.secret_key = "wp-a.co key" # Please, change this key to get a more secure system
 git_hash = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8')
 git_hash = git_hash[:6]
 
@@ -27,9 +27,31 @@ def login_required(f):
 def NewViewReturn(urlprocessar, customaadd, PrivateURL,CreatorID):
 	return(render_template("added.html",FullURL = DefaultFunctions.URLProcessing(urlprocessar, customaadd, PrivateURL,CreatorID), git_hash = git_hash, jumbotroner = True))
 
+### APP ERROR HANDLER
+
+@app.errorhandler(404)
+def errorHandler404(e):
+    return(render_template("error.html", git_hash = git_hash, jumbotroner = True))
+@app.errorhandler(403)
+def errorHandler403(e):
+    return(render_template("error.html", git_hash = git_hash, jumbotroner = True))
+@app.errorhandler(410)
+def errorHandler410(e):
+    return(render_template("error.html", git_hash = git_hash, jumbotroner = True))
+@app.errorhandler(500)
+def errorHandler500(e):
+    return(render_template("error.html", git_hash = git_hash, jumbotroner = True))
+
+### APP PAGES
 @app.route("/", methods=['GET', 'POST'])
 def home():
 	return render_template("index.html", git_hash = git_hash, jumbotroner = True)
+
+
+
+@app.route("/forgotten/", methods=['GET', 'POST'])
+def register():
+	return render_template("forgotten.html")
 
 @app.route("/new/", methods=['GET', 'POST'])
 def newurl():

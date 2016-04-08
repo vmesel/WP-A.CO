@@ -18,13 +18,12 @@
         <h3>Error: {{error}}</h3>
       {% endif %}
     <br/>
-    <form class="" action="/login/" method="post">
-        <input type="text" name="name"  placeholder="Username"><br/>
+    <form class="" action="/register/" method="post">
+        <input type="text" name="name"  placeholder="Your Name"><br/>
         <input type="text" name="username"  placeholder="Username"><br/>
-        <input type="text" name="email"  placeholder="Username"><br/>
-        <input name="password" type="password" placeholder="Password">
+        <input type="email" name="email"  placeholder="Your Email"><br/>
+        <input name="password" type="password" placeholder="Password"><br/>
         <input type="submit" name="name" value="Login"><br/>
-        If you don't have a username, click here to <a href="#">sign up</a>!
     </form>
 </div>
 {% endblock %}
