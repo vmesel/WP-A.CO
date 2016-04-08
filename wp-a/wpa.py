@@ -90,7 +90,6 @@ def loginPage():
 		try:
 			if sha256.verify(str(request.form['password']),str(value[1])) == True:
 				session["logged_in"] = True
-				session["username"] = userform
 				session["userid"] = str(value[0])
 				session["usertype"] = str(value[2])
 				#return(session["userid"])

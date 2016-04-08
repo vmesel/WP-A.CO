@@ -2,6 +2,15 @@
 
 {% block head%}
 <!--Just if you want to add some more content to the Head-->
+<style>
+#share-buttons img {
+width: 35px;
+padding: 5px;
+border: 0;
+box-shadow: 0;
+display: inline;
+}
+</style>
 {% endblock %}
 
 {% block title%}WP-A.CO - Your Open Source URL Shortener!{% endblock %}
@@ -10,6 +19,29 @@
 
 {% block jumbocontent%}
 <h2>Your new URL is: <a href = "{{FullURL}}">{{FullURL}}</a></h2>
+<div id="share-buttons">
+
+    <!-- Email -->
+    <a href="mailto:?Subject=Your Shortened URL&amp;Body=This is your Shortened URL {{FullURL}}">
+        <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+    </a>
+
+    <!-- Facebook -->
+    <a href="http://www.facebook.com/sharer.php?u={{FullURL}}" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{FullURL}}" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+    </a>
+    <!-- Twitter -->
+    <a href="https://twitter.com/share?url={{FullURL}}" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+    </a>
+
+
+</div>
 {% endblock %}
 
 

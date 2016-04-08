@@ -14,17 +14,7 @@ The Development Version means that this software is on some early stages of bein
 ################################################
 ## What we are working on:
 
-- New appearance for the system(based on Bootstrap)
-
-- Get Meta Info of the Pages(For Facebook and Twitter Purposes)
-
-- New Functions at Functions.PY
-
-- Security features to make the system more protected(Preventing SQL Injection and Session Hijack)
-
 - Statistics and reporting things
-
-- Cryptography for the database
 
 ###For Service Intelligence:
 
@@ -34,10 +24,8 @@ The Development Version means that this software is on some early stages of bein
 
 - Statistics for their urls(Available in the future)
 
-- Pay a monthly fee to get a fully functional API with whitelabel domain
+- Pay a monthly fee to get a fully functional API with whitelabel domain (Will be available in the next version!)
 
 ###SuperAdmin
 
 - Capability to delete URLs
-
-- Change Meta Tags for URLs
