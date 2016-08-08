@@ -1,5 +1,4 @@
-from flask import Flask, render_template, redirect, request
-import random
+from flask import Flask, render_template, request
 import datetime
 from hashids import Hashids
 import sqlite3 as sql
