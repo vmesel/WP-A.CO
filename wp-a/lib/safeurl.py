@@ -1,14 +1,21 @@
 """
 HEXADECIMAL URL CREATOR
 BY: @vmesel
-THE ALTERNATIVE TO HEXAHEXADECIMAL FOR URL SHORTENER PURPOSE, BY MILES AT http://stackoverflow.com/a/561704/76900.
+THE ALTERNATIVE TO HEXAHEXADECIMAL FOR URL SHORTENER PURPOSE,
+BY MILES AT http://stackoverflow.com/a/561704/76900.
 """
 import string
-ALPHABET = string.ascii_uppercase + string.ascii_lowercase + \
-           string.digits + '-_'
+
+
+ALPHABET = (
+    string.ascii_uppercase + string.ascii_lowercase + string.digits + '-_'
+)
 ALPHABET_REVERSE = dict((c, i) for (i, c) in enumerate(ALPHABET))
+
 BASE = len(ALPHABET)
 SIGN_CHARACTER = '$'
+
+
 def num_encode(n):
     if n < 0:
         return SIGN_CHARACTER + num_encode(-n)
@@ -19,6 +26,8 @@ def num_encode(n):
         if n == 0:
             break
     return ''.join(reversed(s))
+
+
 def num_decode(s):
     if s[0] == SIGN_CHARACTER:
         return -num_decode(s[1:])
