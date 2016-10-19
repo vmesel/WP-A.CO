@@ -144,4 +144,4 @@ If your HTTP request is all ok, our server will process your request and get you
 Or if you just want some URLs Shortened
 ==================================================
 
-That is the easiest way you can solve your trouble, troll your friends or get your URLs smaller. To start with these, you will need to access (http://wp-a.co)[WP-A.CO] and fill the homepage fields, them hit send and your url is shortened!
+That is the easiest way you can solve your trouble, troll your friends or get your URLs smaller. To start with these, you will need to access [http://wp-a.co](WP-A.CO) and fill the homepage fields, them hit send and your url is shortened!
