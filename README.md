@@ -36,3 +36,10 @@ If you need to contact me, send me an email at me@vmesel.com
 - URL Statistics and URL Board
 
 - Login Area for Registered users to add their URLs and domains
+
+## Contributors
+
+We thank all developers and friends who developed and used this system.
+
+We have some special contributors:
+ - Camila Tanaka(Donated R$10,00)
