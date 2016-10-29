@@ -5,6 +5,8 @@ WP-A stands for Web Powered Access, this actually means that the access to an ap
 
 WP-A.CO is an Open Source URL Shortener project that is being made with Python, SQLite, HTML and CSS.
 Anyone who wants, can develop plugins and other stuff for the project to let it alive!
+
+This project is being hugely supported by Garoa Hacker Clube, specially by Fabio Takashi and Yumi Ambriola! Thanks for being friends of the free web and donating the jelly shots value for us!
 ################################################
 ## Structure
 ```
